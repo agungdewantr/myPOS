@@ -12,6 +12,6 @@ class Mpenjualan extends Model
     protected $PrimaryKey = 'PenjualanID';
 
     protected $fillable = [
-        'totalTransaksi', 'jmlPembayaran'
+        'TotalPenjualan', 'NominalPembayaran'
     ];
 }
