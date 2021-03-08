@@ -15,7 +15,7 @@ class CreatePembelianBarangTable extends Migration
     {
         Schema::create('pembelian_barang', function (Blueprint $table) {
             $table->id('pbbID');
-            $table->integer('PembelianID');
+            $table->integer('PembelianID')->nullable();
             $table->integer('BarangID');
             $table->integer('Qty');
             $table->integer('Total');

@@ -15,7 +15,7 @@ class CreateBarangTable extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id('BarangID');
-            $table->integer('DiskonID');
+            $table->integer('DiskonID')->nullable();
             $table->string('NamaBarang');
             $table->integer('Stok');
             $table->integer('Harga');

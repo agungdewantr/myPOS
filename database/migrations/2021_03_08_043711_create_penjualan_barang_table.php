@@ -15,7 +15,7 @@ class CreatePenjualanBarangTable extends Migration
     {
         Schema::create('penjualan_barang', function (Blueprint $table) {
             $table->id('pjbID');
-            $table->integer('PenjualanID');
+            $table->integer('PenjualanID')->nullable();
             $table->integer('BarangID');
             $table->integer('Qty');
             $table->integer('Total');
