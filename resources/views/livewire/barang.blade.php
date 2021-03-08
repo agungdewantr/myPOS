@@ -3,7 +3,6 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Kelola Barang</h3>
-                <a href="{{ route('Barang') }}" class="btn btn-primary mb-2 ms-2" style="background-color: #9e7cf4"><i class="fas fa-plus"></i> Tambah Barang</a>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -20,18 +19,14 @@
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$B->NamaBarang}}</td>
-                            <td>{{$B->Jumlah}}</td>
+                            <td>{{$B->Stok}}</td>
                             <td>Rp{{$B->Harga}}</td>
                             <td>{{$B->Kadaluarsa}}</td>
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <form action="{{ route('Barang') }}" method="POST">
-                                            <a href="{{ route('Barang') }}"><i class="far fa-edit"></i></a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
-                                        </form>
+                                        <button wire:click="edit({{ $B->BarangID }})" i class="far fa-edit"></i></button>
+                                        <button class="button1" wire:click="delete({{$B->BarangID}})" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
                                     </div>
                                 </div>
                             </td>
@@ -41,5 +36,12 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class="col-sm-4">
+        @if($updateMode)
+        @include('livewire.barang-update')
+        @else
+        @include('livewire.barang-create')
+        @endif
     </div>
 </div>
