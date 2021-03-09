@@ -136,7 +136,8 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false"><i class="mr-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Penjualan')}}" aria-expanded="false"><i class="mr-3 fas fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Penjualan</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pembelian" aria-expanded="false"><i class="mr-3 fas fa-cart-arrow-down" aria-hidden="true"></i><span class="hide-menu">Pembelian</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/barang" aria-expanded="false"><i class="mr-3 fas fa-database" aria-hidden="true"></i><span class="hide-menu">Barang</span></a></li>
+                        <li class="sidebar-item"> <a id="btnbrg" class="sidebar-link waves-effect waves-dark sidebar-link" href="/barang" aria-expanded="false"><i class="mr-3 fas fa-database" aria-hidden="true"></i><span class="hide-menu">Barang</span></a></li>
+                        <button onclick="myFunction()" type="submit">ehhhhh</button>
                     </ul>
 
                 </nav>
