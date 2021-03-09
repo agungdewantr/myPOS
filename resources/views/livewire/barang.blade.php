@@ -43,9 +43,9 @@
     </div>
     <div class="col-sm-4">
         @if(!$updateMode)
-        @include('livewire.barang-create')
+        <livewire:barang-create />
         @else
-        @include('livewire.barang-update')
+        <livewire:barang-update />
         @endif
     </div>
 </div>

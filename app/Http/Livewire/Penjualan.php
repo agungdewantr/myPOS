@@ -33,6 +33,41 @@ class Penjualan extends Component
 
     return view('livewire.penjualan', compact('penjualan_barang', 'barang', 'totalpesanan'));
   }
+
+  public function saveitempesanan(Request $request){
+    $request->validate([
+        'NamaBarang'    => 'required',
+        'Qty'          => 'required'
+    ]);
+    $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
+    $cekbarang = DB::table('penjualan_barang')
+      ->where('BarangID', $request->BarangID)
+      ->where('PenjualanID', NULL)
+      ->get();
+    if (count($cekbarang) == 0) {
+      Mbarang::where('BarangID', $request->BarangID)
+        ->update(['Stok' => $databrg->Stok - $request->Qty]);
+      penjualan_barang::create([
+        'BarangID' => $request->BarangID,
+        'Qty' => $request->Qty,
+        'Total' => $databrg->Harga * $request->Qty,
+      ]);
+      return redirect('/penjualan');
+  } else {
+    $qtydanTotal = DB::table('penjualan_barang')
+      ->select('Qty', 'Total')
+      ->where('BarangID', $request->BarangID)
+      ->where('PenjualanID', NULL)
+      ->first();
+      Mbarang::where('BarangID', $request->BarangID)
+        ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
+      penjualan_barang::where('BarangID', $request->BarangID)
+        ->where('PenjualanID', NULL)
+        ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $databrg->Harga)]);
+      return redirect('/penjualan');
+    }
+  }
+
   public function save()
   {
     $databrg = Mbarang::where('BarangID', $this->barangID)->first();
@@ -49,7 +84,6 @@ class Penjualan extends Component
       Mbarang::where('BarangID', $this->barangID)
         ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
       return redirect('/penjualan');
-      return redirect('/penjualan');
     } else {
       $qtydanTotal = DB::table('penjualan_barang')
         ->select('Qty', 'Total')
@@ -63,7 +97,6 @@ class Penjualan extends Component
         ->update(['Qty' => $qtydanTotal->Qty + $this->Qty, 'Total' => $qtydanTotal->Total + ($this->Qty * $databrg->Harga)]);
       return redirect('/penjualan');
     }
-    return redirect('/penjualan');
   }
   public function tambahQty($id)
   {

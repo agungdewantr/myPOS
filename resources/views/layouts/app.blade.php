@@ -1,269 +1,388 @@
-<!doctype html>
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- tambahan -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="robots" content="noindex,nofollow">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>General Dashboard &mdash; Stisla</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/monster-admin-lite/" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <link href="{!! asset('assets/plugins/chartist/dist/chartist.min.css')!!}" rel="stylesheet">
-    <link href="{!! asset('assets/css/style.min.css') !!}" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons.min.css">
+    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons-wind.min.css">
+    <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{!! asset('assets1/css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('assets/css/components.css') !!}">
     <livewire:styles />
 </head>
 
 <body>
-    <!-- <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
-    </div> -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin6">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="background-color: #9e7cf4;">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand justify-content-center" href="/" style="background-color: #9d7bf3;">
-                        <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-
-                            <img src="{!! asset('assets/images/logo-text.png') !!}" alt="homepage" class="dark-logo">
-
-                        </b>
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <!-- <span class="logo-text"> -->
-
-                        <!-- dark Logo text -->
-                        <!-- <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" /> -->
-
-                        <!-- </span> -->
-                    </a>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav d-none d-md-block d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-toggler nav-link waves-effect waves-light text-white" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                        </li>
+    <div id="app">
+        <div class="main-wrapper">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline mr-auto">
+                    <ul class="navbar-nav mr-3">
+                        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                        <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav mr-auto mt-md-0 ">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-
-                        <li class="nav-item hidden-sm-down">
-                            <form class="app-search pl-3">
-                                <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a>
-                            </form>
-                        </li>
-                    </ul>
-
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <div class="dropdown show">
-                                <a class=" dropdown-toggle  " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <p class="h6 mt-2 mr-5"><span style="color:white; border:solid 2px; padding: 8px 10px; border-radius: 20px;">Budi Karya Budi Karya<i class="fas fa-chevron-down pl-2"></i></span></p>
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Profil</a>
-
-                                    <a class="dropdown-item" href="#">Logout</a>
-                                </div>
+                    <div class="search-element">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                        <div class="search-backdrop"></div>
+                        <div class="search-result">
+                            <div class="search-header">
+                                Histories
                             </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false"><i class="mr-3 far fa-clock fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('Penjualan')}}" aria-expanded="false"><i class="mr-3 fas fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Penjualan</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/pembelian" aria-expanded="false"><i class="mr-3 fas fa-cart-arrow-down" aria-hidden="true"></i><span class="hide-menu">Pembelian</span></a></li>
-                        <li class="sidebar-item"> <a id="btnbrg" class="sidebar-link waves-effect waves-dark sidebar-link" href="/barang" aria-expanded="false"><i class="mr-3 fas fa-database" aria-hidden="true"></i><span class="hide-menu">Barang</span></a></li>
-                        <button onclick="myFunction()" type="submit">ehhhhh</button>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row align-items-center">
-                    <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="page-title mb-0 p-0" style="color: #9e7cf4;">@yield('title')</h3>
-                        <div class="d-flex align-items-center" style="margin-bottom:-30px;">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
-                                </ol>
-                            </nav>
+                            <div class="search-item">
+                                <a href="#">How to hack NASA using CSS</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">Kodinger.com</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">#Stisla</a>
+                                <a href="#" class="search-close"><i class="fas fa-times"></i></a>
+                            </div>
+                            <div class="search-header">
+                                Result
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="../assets/img/products/product-3-50.png" alt="product">
+                                    oPhone S9 Limited Edition
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="../assets/img/products/product-2-50.png" alt="product">
+                                    Drone X2 New Gen-7
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <img class="mr-3 rounded" width="30" src="../assets/img/products/product-1-50.png" alt="product">
+                                    Headphone Blitz
+                                </a>
+                            </div>
+                            <div class="search-header">
+                                Projects
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <div class="search-icon bg-danger text-white mr-3">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    Stisla Admin Template
+                                </a>
+                            </div>
+                            <div class="search-item">
+                                <a href="#">
+                                    <div class="search-icon bg-primary text-white mr-3">
+                                        <i class="fas fa-laptop"></i>
+                                    </div>
+                                    Create a new Homepage Design
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </form>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b>
+                                        <p>Hello, Bro!</p>
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="../assets/img/avatar/avatar-2.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Dedik Sugiharto</b>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="../assets/img/avatar/avatar-3.png" class="rounded-circle">
+                                        <div class="is-online"></div>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Agung Ardiansyah</b>
+                                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="../assets/img/avatar/avatar-4.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Ardian Rahardiansyah</b>
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit ess</p>
+                                        <div class="time">16 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-avatar">
+                                        <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle">
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Alfa Zulkarnain</b>
+                                        <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <div class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Template update is available now!
+                                        <div class="time text-primary">2 Min Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="far fa-user"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                                        <div class="time">10 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                                        <div class="time">12 Hours Ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Low disk space. Let's clean it!
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <div class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="dropdown-item-desc">
+                                        Welcome to Stisla template!
+                                        <div class="time">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <a href="features-profile.html" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
+                            </a>
+                            <a href="features-activities.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="main-sidebar">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="index.html">Stisla</a>
+                    </div>
+                    <div class="sidebar-brand sidebar-brand-sm">
+                        <a href="index.html">St</a>
+                    </div>
+                    <ul class="sidebar-menu">
+                        <li><a class="nav-link" href="/"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
+                        <li><a class="nav-link" href="/penjualan"><i class="far fa-square"></i> <span>Penjualan</span></a></li>
+                        <li><a class="nav-link" href="/pembelian"><i class="far fa-square"></i> <span>Pembelian</span></a></li>
+                        <li><a class="nav-link" href="/barang"><i class="far fa-square"></i> <span>Barang</span></a></li>
+                    </ul>
+
+                    <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+                        <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                            <i class="fas fa-rocket"></i> Documentation
+                        </a>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Dashboard</h1>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Statistics</h4>
+                                    <div class="card-header-action">
+                                        <div class="btn-group">
+                                            <a href="#" class="btn btn-primary">Week</a>
+                                            <a href="#" class="btn">Month</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myChart" height="182"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Recent Activities</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled list-unstyled-border">
+                                        <li class="media">
+                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-1.png" alt="avatar">
+                                            <div class="media-body">
+                                                <div class="float-right text-primary">Now</div>
+                                                <div class="media-title">Farhan A Mujib</div>
+                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-2.png" alt="avatar">
+                                            <div class="media-body">
+                                                <div class="float-right">12m</div>
+                                                <div class="media-title">Ujang Maman</div>
+                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-3.png" alt="avatar">
+                                            <div class="media-body">
+                                                <div class="float-right">17m</div>
+                                                <div class="media-title">Rizal Fakhri</div>
+                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-4.png" alt="avatar">
+                                            <div class="media-body">
+                                                <div class="float-right">21m</div>
+                                                <div class="media-title">Alfa Zulkarnain</div>
+                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="text-center pt-1 pb-1">
+                                        <a href="#" class="btn btn-primary btn-lg btn-round">
+                                            View All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    {{$slot}}
+                </section>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
                 </div>
-            </div>
-            <div class="container-fluid">
-            {{ $slot }}
-            @yield('menu')
-                
-                
-            </div>
-            <footer class="footer text-center">
-                © SISTEM KASIR 2021
+                <div class="footer-right">
+                    2.3.0
+                </div>
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <script src="{!! asset('assets/plugins/jquery/dist/jquery.min.js') !!}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="{!! asset('assets/plugins/popper.js/dist/umd/popper.min.js') !!}"></script>
-    <script src="{!! asset('assets/plugins/bootstrap/dist/js/bootstrap.min.js') !!}"></script>
-    <script src="{!! asset('assets/js/app-style-switcher.js') !!}"></script>
-    <!--Wave Effects -->
-    <script src="{!! asset('assets/js/waves.js') !!}"></script>
-    <!--Menu sidebar -->
-    <script src="{!! asset('assets/js/sidebarmenu.js') !!}"></script>
-    <!--Custom JavaScript -->
-    <script src="{!! asset('assets/js/custom.js') !!}"></script>
-    <!--This page JavaScript -->
-    <!--flot chart-->
-    <script src="{!! asset('assets/plugins/flot/jquery.flot.js') !!}"></script>
-    <script src="{!! asset('assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js') !!}"></script>
-    <script src="{!! asset('assets/js/pages/dashboards/dashboard1.js') !!}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+    <!-- General JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="{!! asset('assets1/js/stisla.js') !!}"></script>
+
+    <!-- JS Libraies -->
+    <script src="../node_modules/simpleweather/jquery.simpleWeather.min.js"></script>
+    <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="../node_modules/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="../node_modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
+    <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+
+    <!-- Template JS File -->
+    <script src="{!! asset('assets1/js/scripts.js') !!}"></script>
+    <script src="{!! asset('assets1/js/custom.js') !!}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{!! asset('assets1/js/page/index-0.js') !!}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!--  -->
-    <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"/> -->
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" integrity="sha512-HWlJyU4ut5HkEj0QsK/IxBCY55n5ZpskyjVlAoV9Z7XQwwkqXoYdCIC93/htL3Gu5H3R4an/S0h2NXfbZk3g7w==" crossorigin="anonymous"></script>
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!-- <script type="text/javascript">
-        $(document).ready(function() {
-            console.log('test');
-            $.ajax({
-                type: 'get',
-                url: '{!!URL::to('caribarang ')!!}',
-                success:function(response) {
-                    console.log(response);
-                    //m css
-                    var barangArray = response;
-                    var databarang = {};
-                    var databarang2 = {};
-                    for (var i = 0; i < barangArray.length; i++) {
-                      databarang[barangArray[i].NamaBarang] =null;
-                      databarang2[barangArray[i].NamaBarang] =barangArray[i];
-                    }
-                    console.log(databarang);
-                    $('input#barang').autocomplete({
-                        data: databarang,
-                    });
-                }
-            })
-        });
-    </script> -->
-    <!-- <script>
-      var path = "{{route('autocomplete')}}";
-      $('input#barang').autocomplete({
-        source:function(terms,process){
-          return $.get(path,{terms:terms},function(data){
-            return process($data);
-          });
-        }
-      });
-    </script> -->
-    <!-- <script>
-    function validateForm() {
-        var x = document.forms["tambah"]["barang"].value;
-        var y = document.forms["tambah"]["barang2"].value;
-        if (x == null || x == "") {
-          x =y;
-            alert(x);
-        }
-    }
-    </script> -->
     @yield('script')
     <livewire:scripts />
-
 </body>
 
 </html>

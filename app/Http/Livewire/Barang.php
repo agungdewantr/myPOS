@@ -43,7 +43,7 @@ class Barang extends Component
             'Stok'          => 'required',
             'Harga'         => 'required',
             'Kadaluarsa'    => 'required'
-          ]);
+        ]);
         Mbarang::create([
             'NamaBarang'     => $request->NamaBarang,
             'Stok'           => $request->Stok,
@@ -59,8 +59,7 @@ class Barang extends Component
         $updateMode = $this->updateMode;
         $barang = Mbarang::all();
         $EditBarang = Mbarang::where('BarangID', $id)->first();
-        return view('livewire.barang', compact('barang', 'EditBarang','updateMode'));
-
+        return view('livewire.barang', compact('barang', 'EditBarang', 'updateMode'));
     }
 
     public function update(Request $request, Barang $barang)
@@ -70,7 +69,7 @@ class Barang extends Component
             'Stok'          => 'required',
             'Harga'         => 'required',
             'Kadaluarsa'    => 'required'
-          ]);
+        ]);
         $barang->update($request->all());
         return redirect('/barang');
     }
