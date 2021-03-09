@@ -36,6 +36,12 @@ class Barang extends Component
 
     public function save()
     {
+        $this->validate([
+            'NamaBarang'    => ['required'],
+            'Stok'          => ['required'],
+            'Harga'         => ['required'],
+            'Kadaluarsa'    => ['required']
+          ]);
         Mbarang::create([
             'NamaBarang'    => $this->NamaBarang,
             'Stok'        => $this->Stok,
