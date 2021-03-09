@@ -25,8 +25,12 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <button wire:click="edit({{ $B->BarangID }})" i class="far fa-edit"></i></button>
-                                        <button class="button1" wire:click="delete({{$B->BarangID}})" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
+                                        <form action="" method="POST">
+                                            <a href="/barang/{{$B->BarangID}}/edit"><i class="far fa-edit"></i></a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
@@ -38,10 +42,10 @@
         </div>
     </div>
     <div class="col-sm-4">
-        @if($updateMode)
-        @include('livewire.barang-update')
-        @else
+        @if(!$updateMode)
         @include('livewire.barang-create')
+        @else
+        @include('livewire.barang-update')
         @endif
     </div>
 </div>

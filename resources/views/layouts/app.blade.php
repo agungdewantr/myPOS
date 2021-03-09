@@ -171,7 +171,10 @@
                 </div>
             </div>
             <div class="container-fluid">
-                {{ $slot }}
+            {{ $slot }}
+            @yield('menu')
+                
+                
             </div>
             <footer class="footer text-center">
                 © SISTEM KASIR 2021

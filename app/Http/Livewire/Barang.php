@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Mbarang;
 use Livewire\Component;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Barang extends Component
 {
@@ -34,19 +36,19 @@ class Barang extends Component
         $this->barangID;
     }
 
-    public function save()
+    public function CreateBarang(Request $request)
     {
-        $this->validate([
-            'NamaBarang'    => ['required'],
-            'Stok'          => ['required'],
-            'Harga'         => ['required'],
-            'Kadaluarsa'    => ['required']
+        $request->validate([
+            'NamaBarang'    => 'required',
+            'Stok'          => 'required',
+            'Harga'         => 'required',
+            'Kadaluarsa'    => 'required'
           ]);
         Mbarang::create([
-            'NamaBarang'    => $this->NamaBarang,
-            'Stok'        => $this->Stok,
-            'Harga'         => $this->Harga,
-            'Kadaluarsa'    => $this->Kadaluarsa
+            'NamaBarang'     => $request->NamaBarang,
+            'Stok'           => $request->Stok,
+            'Harga'          => $request->Harga,
+            'Kadaluarsa'     => $request->Kadaluarsa
         ]);
         return redirect('/barang');
     }
@@ -54,24 +56,22 @@ class Barang extends Component
     public function edit($id)
     {
         $this->updateMode = true;
-        $barang = Mbarang::where('BarangID', $id)->first();
-        $this->NamaBarang = $barang->NamaBarang;
-        $this->barangID = $id;
-        $this->Stok = '';
-        $this->Harga = $barang->Harga;
-        $this->Kadaluarsa = $barang->Kadaluarsa;
+        $updateMode = $this->updateMode;
+        $barang = Mbarang::all();
+        $EditBarang = Mbarang::where('BarangID', $id)->first();
+        return view('livewire.barang', compact('barang', 'EditBarang','updateMode'));
+
     }
 
-    public function update()
+    public function update(Request $request, Barang $barang)
     {
-        $barang = Mbarang::where('BarangID', $this->barangID)->first();
-        Mbarang::where('BarangID', $this->barangID)
-            ->update([
-                'NamaBarang' => $this->NamaBarang,
-                'Stok' =>  $this->Stok + $barang->Stok,
-                'Harga' => $this->Harga,
-                'Kadaluarsa' => $this->Kadaluarsa
-            ]);
+        $request->validate([
+            'NamaBarang'    => 'required',
+            'Stok'          => 'required',
+            'Harga'         => 'required',
+            'Kadaluarsa'    => 'required'
+          ]);
+        $barang->update($request->all());
         return redirect('/barang');
     }
 
