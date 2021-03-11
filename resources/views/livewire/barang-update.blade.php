@@ -13,12 +13,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <!-- CSS Libraries -->
-    <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons.min.css">
-    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons-wind.min.css">
-    <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css"> -->
-
     <!-- Template CSS -->
     <link rel="stylesheet" href="{!! asset('assets1/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('assets1/css/components.css') !!}">
@@ -262,53 +256,52 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                          <div class="card">
-                              <div class="card-body">
-                                  <h3 class="card-title">Update Barang</h3>
-                                  <div class="card-body">
-                                      @if (count($errors) > 0)
-                                      <div class="alert alert-danger">
-                                          <ul>
-                                              @foreach ($errors->all() as $error)
-                                              <li>{{ $error }}</li>
-                                              @endforeach
-                                          </ul>
-                                      </div>
-                                      @endif
-                                      <br>
-                                      <form action="/barang" method="POST">
-                                      @csrf
-                                      @method('PUT')
-                                          <div class="form-group" margin-top="-5px">
-                                              <label for="tambahbarang" style="font-size:12pt;">Nama Barang</label><br>
-                                              <input type="text" class="form-control" readonly="" name="NamaBarang" id="NamaBarang" value="{{$EditBarang->NamaBarang}}">
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-5">
-                                                  <div class="form-group">
-                                                      <label for="tambahbarang" style="font-size:12pt;">Stok</label><br>
-                                                      <input type="number" name="Stok" id="Stok" class="form-control" value="">
-                                                  </div>
-                                              </div>
-                                              <div class="col-7">
-                                                  <div class="form-group">
-                                                      <input type="hidden" wire:model="barangID">
-                                                      <label for="tambahbarang" style="font-size:12pt;">Harga</label><br>
-                                                      <input type="number" name="Harga" id="Harga" class="form-control" value="{{$EditBarang->Harga}}">
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label for="tambahbarang" style="font-size:12pt;">Kadaluarsa</label><br>
-                                              <input type="hidden" name="BarangID" id="BarangID" value="{{$EditBarang->BarangID}}">
-                                              <input type="date" class="form-control" id="Kadaluarsa" name="Kadaluarsa" value="{{$EditBarang->Kadaluarsa}}">
-                                          </div>
-                                          <button style="background-color:#9e7cf4" class="btn" id="btn">Update</button>
-                                      </form>
-                                  </div>
-                              </div>
-                          </div>
-
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Update Barang</h3>
+                                    <div class="card-body">
+                                        @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+                                        <br>
+                                        <form action="/barang" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                            <div class="form-group" margin-top="-5px">
+                                                <label for="tambahbarang" style="font-size:12pt;">Nama Barang</label><br>
+                                                <input type="text" class="form-control" readonly="" name="NamaBarang" id="NamaBarang" value="{{$EditBarang->NamaBarang}}">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="form-group">
+                                                        <label for="tambahbarang" style="font-size:12pt;">Stok</label><br>
+                                                        <input type="number" name="Stok" id="Stok" class="form-control" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <div class="form-group">
+                                                        <input type="hidden" wire:model="barangID">
+                                                        <label for="tambahbarang" style="font-size:12pt;">Harga</label><br>
+                                                        <input type="number" name="Harga" id="Harga" class="form-control" value="{{$EditBarang->Harga}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tambahbarang" style="font-size:12pt;">Kadaluarsa</label><br>
+                                                <input type="hidden" name="BarangID" id="BarangID" value="{{$EditBarang->BarangID}}">
+                                                <input type="date" class="form-control" id="Kadaluarsa" name="Kadaluarsa" value="{{$EditBarang->Kadaluarsa}}">
+                                            </div>
+                                            <button style="background-color:#9e7cf4" class="btn" id="btn">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
 use App\Models\periode;
 use Livewire\Component;
 

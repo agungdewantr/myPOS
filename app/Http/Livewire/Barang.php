@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
 use App\Models\Mbarang;
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -73,10 +72,10 @@ class Barang extends Component
         $EditBarang = Mbarang::where('BarangID', $request->BarangID)->first();
         Mbarang::where('BarangID', $request->BarangID)
           ->update([
-            'NamaBarang' => $request->NamaBarang,
-            'Stok' => $EditBarang->Stok +  $request->Stok,
-            'Harga' => $request->Harga,
-            'Kadaluarsa' => $request->Kadaluarsa
+            'NamaBarang'   => $request->NamaBarang,
+            'Stok'         => $EditBarang->Stok +  $request->Stok,
+            'Harga'        => $request->Harga,
+            'Kadaluarsa'   => $request->Kadaluarsa
           ]);
         return redirect('/barang');
     }
