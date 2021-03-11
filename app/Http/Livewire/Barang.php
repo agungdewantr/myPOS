@@ -55,14 +55,13 @@ class Barang extends Component
 
     public function edit($id)
     {
-        $this->updateMode = true;
-        $updateMode = $this->updateMode;
         $barang = Mbarang::all();
         $EditBarang = Mbarang::where('BarangID', $id)->first();
-        return view('livewire.barang', compact('barang', 'EditBarang', 'updateMode'));
+        return view('livewire.barang-update', compact('barang', 'EditBarang'))
+        ->extends('layouts.barang')->section('content');
     }
 
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request)
     {
         $request->validate([
             'NamaBarang'    => 'required',
@@ -70,12 +69,21 @@ class Barang extends Component
             'Harga'         => 'required',
             'Kadaluarsa'    => 'required'
         ]);
-        $barang->update($request->all());
+
+        $EditBarang = Mbarang::where('BarangID', $request->BarangID)->first();
+        Mbarang::where('BarangID', $request->BarangID)
+          ->update([
+            'NamaBarang' => $request->NamaBarang,
+            'Stok' => $EditBarang->Stok +  $request->Stok,
+            'Harga' => $request->Harga,
+            'Kadaluarsa' => $request->Kadaluarsa
+          ]);
         return redirect('/barang');
     }
 
     public function delete($id)
     {
         Mbarang::where('BarangID', $id)->delete();
+        return redirect('/barang');
     }
 }

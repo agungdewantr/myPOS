@@ -5,6 +5,12 @@
                             <h4>Keranjang Belanja</h4>
                           </div>
                           <div class="card-body">
+                            @if ($message = Session::get('success'))
+                              <div class="alert alert-warning">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                              </div>
+                            @endif
                             <table class="table table-sm">
                               <thead>
                                 <tr>
@@ -28,7 +34,7 @@
                                   <td>
                                     <div class="row">
                                       <div class="col">
-                                        <form action="" method="POST">
+                                        <form action="/penjualan/{{$pj->pjbID}}/hapus" method="POST">
                                           @csrf
                                           @method('DELETE')
                                           <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0);"><i class="fas fa-trash-alt" style="color: red;"></i></button>
@@ -49,6 +55,7 @@
                             <h4>Tambah Transaksi</h4>
                           </div>
                           <div class="card-body">
+                            <div class="row">
                             <form action="/penjualan/keranjang" method="post">
                               @csrf
                               <div class="form-row">
@@ -77,81 +84,73 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="row">
-                                <div class="col-lg-4">
-
-                                </div>
+                            </form>
+                            </div>
+                              <!-- <div class="row">
+                                <div class="col-12" style="text-align:right;">
                                 <form name="calcu" method="POST" action="/penjualan">
                                   @csrf
-                                <div class="col-lg-8 text-right">
+                                  <input type="number" id="rupiah1" placeholder="yokk" name="inppembayaran" value="" autofocus />
+                                <div class="col-lg-12 text-right">
                                   <div class="invoice-detail-item">
                                     <div class="invoice-detail-name">Total Pembelian</div>
-                                    <div class="invoice-detail-value"><input type="number" readonly="" id="total" name="total" value="{{$totalpesanan->totalPesanan}}"  style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;" onFocus="startCalc();" onBlur="stopCalc();"></div>
+                                    <div class="invoice-detail-value" id="total"><h3>Rp.
+                                {{ number_format($totalpesanan->totalPesanan,2,',','.') }}</h3></div>
+                                      <input type="hidden" readonly="" id="totalHidden" name="totalHidden" value="{{$totalpesanan->totalPesanan}}"  style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;" >
                                   </div>
                                   <div class="invoice-detail-item">
                                     <div class="invoice-detail-name">Nominal Pembayaran </div>
-                                    <div class="invoice-detail-value"><input type="number" id="jmlpembayaran" name="jmlpembayaran" value="" style="font-size:20px;text-align: right; border:none; decoration: none; font-style:bold;width:205px;" onFocus="startCalc();" onBlur="stopCalc();"> </div>
+                                    <div class="invoice-detail-value" ><h3 id="rupiahh"></h3></div>
                                   </div>
                                   <hr class="mt-2 mb-2">
                                   <div class="invoice-detail-item">
                                     <div class="invoice-detail-name">Kembalian</div>
-                                    <div class="invoice-detail-value invoice-detail-value-lg"><input type="number" readonly=""  id="kembalian" name="kembalian" value="" style="font-size:20px;text-align: right; border:none; decoration: none; font-style:bold;width:205px;" onFocus="startCalc();" onBlur="stopCalc();"></div>
+                                    <div class="invoice-detail-value invoice-detail-value-lg"><h3 id="kembalian"></h3> </div>
+                                      <input type="hidden" readonly=""  id="inpkembalian" name="inpkembalian" value="">
                                   </div>
-                                </div>
-                                <button type="button" class="btn btn-primary" name="button">Save</button>
+                                <button type="submit" class="btn btn-primary" name="button">Save</button>
                               </form>
+                            </div>
                               </div>
-                            </form>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-5">
-                        <div class="row">
+                                        </div>
+                      <div class="row">
+                        <div class="col-7">
+
+                        </div>
+                        <div class="col-lg-5">
                           <div class="card">
+                            <div class="card-header">
+                              <h4>Proses Pembayaran</h4>
+                            </div>
                             <div class="card-body">
                               <form name="calcu" method="POST" action="/penjualan">
                                 @csrf
-                                <table class="table table-sm col-12" bgcolor="#fc8d8e">
-                                  <tr border="0">
-                                    <td border="0"><b>Total Harga</b></td>
-                                    <td>:</td>
-                                    <td>
-                                      <div class="form-group">
-                                        <input style="margin-bottom: -20px;background-color:#fc8d8e;color:white;border:none;" type="text" value="{{$totalpesanan->totalPesanan}}" name="total" readonly="" class="form-control" id="total" onFocus="startCalc();" onBlur="stopCalc();">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr border="0">
-                                    <td><b>Bayar</b></td>
-                                    <td>:</td>
-                                    <td>
-                                      <div class="form-group">
-                                        <input style="margin-bottom: -20px;background-color:#fc8d8e;color:white;border:none;font-size:15px;" type="number" class="form-control" id="jmlpembayaran" name="jmlpembayaran" placeholder="Masukkan jumlah pembayaran.." onFocus="startCalc();" onBlur="stopCalc();">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr border="0">
-                                    <td><b>Kembalian</b></td>
-                                    <td>:</td>
-                                    <td>
-                                      <div class="form-group">
-                                        <input style="margin-bottom: -20px;background-color:#fc8d8e;color:white;border:none;" type="text" readonly="" class="form-control" id="kembalian" name="kembalian" onFocus="startCalc();" onBlur="stopCalc();">
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </table>
-                                <div class="row">
-                                  <div class="col-12 mt-2">
-                                    <button class="col-12 btn btn-primary" style="background-color: #9e7cf4; border:none;" type="submit" style="border:none;"><i class="fas fa-plus"></i>
-                                      <p class="d-inline">Save</p>
-                                    </button>
-                                  </div>
+                                <input type="number" class="form-control" id="rupiah1" placeholder="Masukkan Nominal Pembayaran" name="inppembayaran" value="" autofocus />
+                              <div class="col-lg-12 text-right">
+                                <div class="invoice-detail-item">
+                                  <div class="invoice-detail-name">Total Pembelian</div>
+                                  <div class="invoice-detail-value" id="total"><h3>Rp.
+                              {{ number_format($totalpesanan->totalPesanan,2,',','.') }}</h3></div>
+                                    <input type="hidden" readonly="" id="totalHidden" name="totalHidden" value="{{$totalpesanan->totalPesanan}}"  style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;" >
                                 </div>
-                              </form>
+                                <div class="invoice-detail-item">
+                                  <div class="invoice-detail-name">Nominal Pembayaran </div>
+                                  <div class="invoice-detail-value" ><h3 id="rupiahh"></h3></div>
+                                </div>
+                                <hr class="mt-2 mb-2">
+                                <div class="invoice-detail-item">
+                                  <div class="invoice-detail-name">Kembalian</div>
+                                  <div class="invoice-detail-value invoice-detail-value-lg"><h3 id="kembalian"></h3> </div>
+                                    <input type="hidden" readonly=""  id="inpkembalian" name="inpkembalian" value="">
+                                </div>
+                              <!-- </div> -->
+                              <button type="submit" class="btn btn-primary" name="button">Save</button>
+                            </form>
                             </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -173,8 +172,8 @@
                               dataharga2[hargaArray[i].NamaBarang] = hargaArray[i];
                             }
 
-                            console.log("dataharga2");
-                            console.log(dataharga2);
+                            // console.log("dataharga2");
+                            // console.log(dataharga2);
 
                             $('input#NamaBarang').autocomplete({
                               data: dataharga,
@@ -188,28 +187,36 @@
                         })
                       });
                       $(document).ready(function() {
-                        $("#jumlah, #hargajual").keyup(function() {
-                          var harga = $("#hargajual").val();
-                          var jumlah = $("#jumlah").val();
-
-                          var totalharga = parseInt(harga) * parseInt(jumlah);
-                          $("#totalHarga").val(totalharga);
+                        $("#totalHidden, #rupiah1, #rupiah, #kembalian, #inpkembalian").keyup(function() {
+                          var total = $("#totalHidden").val();
+                          var jmlpembayaran = $("#rupiah1").val();
+                          var kembalian = parseInt(jmlpembayaran) - parseInt(total);
+                          $("#inpkembalian").val(kembalian);
+                          var tampilkembalian = kembalian.toString();
+                          document.getElementById("rupiahh").innerHTML = formatRupiah(jmlpembayaran, "Rp.");
+                          document.getElementById("kembalian").innerHTML = formatRupiah(tampilkembalian, "Rp.");
                         });
                       });
+
+                      // var rupiah = document.getElementById("rupiahh").innerHTML;
+
+/* Fungsi formatRupiah */
+function formatRupiah(angka, prefix) {
+  var number_string = angka.replace(/[^,\d]/g, "").toString(),
+    split = number_string.split(","),
+    sisa = split[0].length % 3,
+    rupiah = split[0].substr(0, sisa),
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+  // tambahkan titik jika yang di input sudah menjadi angka ribuan
+  if (ribuan) {
+    separator = sisa ? "." : "";
+    rupiah += separator + ribuan.join(".");
+  }
+
+  rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+  return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+}
+
                     </script>
-                    <script>
-                      function startCalc() {
-                        interval = setInterval("calc()", 1);
-                      }
-
-                      function calc() {
-                        total = document.calcu.total.value;
-                        jmlpembayaran = document.calcu.jmlpembayaran.value;
-                        document.calcu.kembalian.value = jmlpembayaran - total;
-                      }
-
-                      function stopCalc() {
-                        clearInterval(interval);
-                      }
-                    </script> <!-- Menghitung otomatis -->
                     @endsection

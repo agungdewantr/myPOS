@@ -98,9 +98,10 @@ class Penjualan extends Component
       return redirect('/penjualan');
     }
   }
-  public function tambahQty($id)
+  public function deleteitem($id)
   {
-    dd($id);
+    penjualan_barang::where('pjbID', $id)->delete();
+    return redirect('/penjualan')->with(['success' => 'Item dihapus']);
   }
   private function initializedProperties()
   {
@@ -124,8 +125,8 @@ class Penjualan extends Component
   public function savetransaksi(Request $request)
   {
     Mpenjualan::create([
-      'TotalPenjualan' => $request->total,
-      'NominalPembayaran' => $request->jmlpembayaran
+      'TotalPenjualan' => $request->totalHidden,
+      'NominalPembayaran' => $request->inppembayaran
     ]);
     $PenjualanID = DB::table('penjualan')
       ->select(DB::raw('MAX(PenjualanID) as id'))

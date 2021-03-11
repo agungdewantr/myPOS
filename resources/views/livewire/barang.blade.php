@@ -25,7 +25,7 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <form action="" method="POST">
+                                        <form action="/barang/{{$B->BarangID}}/delete" method="POST">
                                             <a href="/barang/{{$B->BarangID}}/edit"><i class="far fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
@@ -42,10 +42,6 @@
         </div>
     </div>
     <div class="col-sm-4">
-        @if(!$updateMode)
-        <livewire:barang-create />
-        @else
-        <livewire:barang-update />
-        @endif
+          @include('livewire.barang-create')
     </div>
 </div>
