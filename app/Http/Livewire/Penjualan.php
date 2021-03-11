@@ -100,6 +100,10 @@ class Penjualan extends Component
   }
   public function deleteitem($id)
   {
+    $getQty = penjualan_barang::where('pjbID', $id)->first();
+    $getBrg = Mbarang::where('BarangID', $getQty->BarangID)->first();
+    Mbarang::where('BarangID', $getQty->BarangID)
+      ->update(['Stok' => $getBrg->Stok + $getQty->Qty]);
     penjualan_barang::where('pjbID', $id)->delete();
     return redirect('/penjualan')->with(['success' => 'Item dihapus']);
   }
