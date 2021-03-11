@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
 use App\Models\Mbarang;
 use App\Models\Mpenjualan;
 use App\Models\penjualan_barang;
@@ -14,10 +13,7 @@ class Penjualan extends Component
   public $barangID;
   public $Qty;
   public $query;
-  // public function mount()
-  // {
-  //   $this->initializedProperties();
-  // }
+
   public function render()
   {
     $penjualan_barang = DB::table('penjualan_barang')
@@ -30,13 +26,12 @@ class Penjualan extends Component
       ->select(DB::raw('SUM(Total) as totalPesanan'))
       ->where('PenjualanID', '=', NULL)
       ->first();
-
     return view('livewire.penjualan', compact('penjualan_barang', 'barang', 'totalpesanan'));
   }
 
   public function saveitempesanan(Request $request){
     $request->validate([
-        'NamaBarang'    => 'required',
+        'NamaBarang'   => 'required',
         'Qty'          => 'required'
     ]);
     $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
@@ -49,8 +44,8 @@ class Penjualan extends Component
         ->update(['Stok' => $databrg->Stok - $request->Qty]);
       penjualan_barang::create([
         'BarangID' => $request->BarangID,
-        'Qty' => $request->Qty,
-        'Total' => $databrg->Harga * $request->Qty,
+        'Qty'      => $request->Qty,
+        'Total'    => $databrg->Harga * $request->Qty,
       ]);
       return redirect('/penjualan');
   } else {
@@ -78,8 +73,8 @@ class Penjualan extends Component
     if (count($cekbarang) == 0) {
       penjualan_barang::create([
         'BarangID' => $this->barangID,
-        'Qty' => $this->Qty,
-        'Total' => $databrg->Harga * $this->Qty,
+        'Qty'      => $this->Qty,
+        'Total'    => $databrg->Harga * $this->Qty,
       ]);
       Mbarang::where('BarangID', $this->barangID)
         ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
@@ -107,11 +102,6 @@ class Penjualan extends Component
     penjualan_barang::where('pjbID', $id)->delete();
     return redirect('/penjualan')->with(['success' => 'Item dihapus']);
   }
-  // private function initializedProperties()
-  // {
-  //   $this->barangID = null;
-  //   $this->Qty = null;
-  // }
 
   public function caribarang()
   {
@@ -119,17 +109,10 @@ class Penjualan extends Component
     return response()->json($barang);
   }
 
-  // public function autocomplete(Request $request)
-  // {
-  //   $barang = Mbarang::select("NamaBarang")
-  //     ->where("NamaBarang", "LIKE", "%{$request->terms}%")
-  //     ->get();
-  //   return response()->json($barang);
-  // }
   public function savetransaksi(Request $request)
   {
     Mpenjualan::create([
-      'TotalPenjualan' => $request->totalHidden,
+      'TotalPenjualan'    => $request->totalHidden,
       'NominalPembayaran' => $request->inppembayaran
     ]);
     $PenjualanID = DB::table('penjualan')

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire;
-
 use App\Models\Mbarang;
 use App\Models\Mpembelian;
 use App\Models\pembelian_barang;
@@ -15,10 +14,6 @@ class Pembelian extends Component
     public $Qty;
     public $query;
 
-    // public function mount()
-    // {
-    //     $this->initializedProperties();
-    // }
     public function render()
     {
       $pembelian_barang = DB::table('pembelian_barang')
@@ -30,15 +25,14 @@ class Pembelian extends Component
       $totalpesanan = DB::table('pembelian_barang')
         ->select(DB::raw('SUM(Total) as totalPesanan'))
         ->where('PembelianID', '=', NULL)
-        ->first();
-  
+        ->first();  
       return view('livewire.pembelian', compact('pembelian_barang', 'barang', 'totalpesanan'));
     }
 
     public function saveitembeli(Request $request){
         $request->validate([
-            'NamaBarang'    => 'required',
-            'Qty'           => 'required'
+            'NamaBarang'   => 'required',
+            'Qty'          => 'required'
         ]);
         $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
         $cekbarang = DB::table('pembelian_barang')
