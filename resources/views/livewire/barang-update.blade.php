@@ -281,7 +281,7 @@
                                       @method('PUT')
                                           <div class="form-group" margin-top="-5px">
                                               <label for="tambahbarang" style="font-size:12pt;">Nama Barang</label><br>
-                                              <input type="text" class="form-control" name="NamaBarang" id="NamaBarang" value="{{$EditBarang->NamaBarang}}">
+                                              <input type="text" class="form-control" readonly="" name="NamaBarang" id="NamaBarang" value="{{$EditBarang->NamaBarang}}">
                                           </div>
                                           <div class="row">
                                               <div class="col-5">
