@@ -14,10 +14,10 @@ class Penjualan extends Component
   public $barangID;
   public $Qty;
   public $query;
-  public function mount()
-  {
-    $this->initializedProperties();
-  }
+  // public function mount()
+  // {
+  //   $this->initializedProperties();
+  // }
   public function render()
   {
     $penjualan_barang = DB::table('penjualan_barang')
@@ -103,11 +103,11 @@ class Penjualan extends Component
     penjualan_barang::where('pjbID', $id)->delete();
     return redirect('/penjualan')->with(['success' => 'Item dihapus']);
   }
-  private function initializedProperties()
-  {
-    $this->barangID = null;
-    $this->Qty = null;
-  }
+  // private function initializedProperties()
+  // {
+  //   $this->barangID = null;
+  //   $this->Qty = null;
+  // }
 
   public function caribarang()
   {
@@ -115,13 +115,13 @@ class Penjualan extends Component
     return response()->json($barang);
   }
 
-  public function autocomplete(Request $request)
-  {
-    $barang = Mbarang::select("NamaBarang")
-      ->where("NamaBarang", "LIKE", "%{$request->terms}%")
-      ->get();
-    return response()->json($barang);
-  }
+  // public function autocomplete(Request $request)
+  // {
+  //   $barang = Mbarang::select("NamaBarang")
+  //     ->where("NamaBarang", "LIKE", "%{$request->terms}%")
+  //     ->get();
+  //   return response()->json($barang);
+  // }
   public function savetransaksi(Request $request)
   {
     Mpenjualan::create([
