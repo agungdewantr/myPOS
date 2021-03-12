@@ -25,7 +25,7 @@ class Pembelian extends Component
       $totalpesanan = DB::table('pembelian_barang')
         ->select(DB::raw('SUM(Total) as totalPesanan'))
         ->where('PembelianID', '=', NULL)
-        ->first();  
+        ->first();
       return view('livewire.pembelian', compact('pembelian_barang', 'barang', 'totalpesanan'));
     }
 
@@ -40,8 +40,6 @@ class Pembelian extends Component
           ->where('PembelianID', NULL)
           ->get();
         if (count($cekbarang) == 0) {
-          Mbarang::where('BarangID', $request->BarangID)
-            ->update(['Stok' => $databrg->Stok - $request->Qty]);
           pembelian_barang::create([
             'BarangID' => $request->BarangID,
             'Qty'      => $request->Qty,
@@ -54,8 +52,6 @@ class Pembelian extends Component
           ->where('BarangID', $request->BarangID)
           ->where('PembelianID', NULL)
           ->first();
-          Mbarang::where('BarangID', $request->BarangID)
-            ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
           pembelian_barang::where('BarangID', $request->BarangID)
             ->where('PembelianID', NULL)
             ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $databrg->Harga)]);

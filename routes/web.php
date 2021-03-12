@@ -33,3 +33,6 @@ Route::delete('/pembelian/{id}/hapus', [App\Http\Livewire\Pembelian::class, 'del
 Route::post('pembelian', [App\Http\Livewire\Pembelian::class, 'savetransaksi'])->name('savetransaksi');
 Route::post('/periode', [App\Http\Livewire\Home::class, 'saveperiode'])->name('saveperiode');
 Route::post('/diskon', [App\Http\Livewire\Home::class, 'savediskon'])->name('savediskon');
+Route::get('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'editdiskon'])->name('editdiskon');
+Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])->name('updatediskon');
+Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
