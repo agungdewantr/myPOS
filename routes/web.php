@@ -31,3 +31,5 @@ Route::get('pembelian', App\Http\Livewire\Pembelian::class)->name('Pembelian');
 Route::post('pembelian/keranjang', [App\Http\Livewire\Pembelian::class, 'saveitembeli'])->name('saveitembeli');
 Route::delete('/pembelian/{id}/hapus', [App\Http\Livewire\Pembelian::class, 'deleteitem'])->name('deleteitem');
 Route::post('pembelian', [App\Http\Livewire\Pembelian::class, 'savetransaksi'])->name('savetransaksi');
+Route::post('/periode', [App\Http\Livewire\Home::class, 'saveperiode'])->name('saveperiode');
+Route::post('/diskon', [App\Http\Livewire\Home::class, 'savediskon'])->name('savediskon');
