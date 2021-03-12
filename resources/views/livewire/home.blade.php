@@ -47,6 +47,15 @@
     </div>
   </div>
 </div>
+<div class="card">
+  <div class="card-header">
+    <h4>Modal Demo</h4>
+  </div>
+  <div class="card-body">
+    <p class="mb-2">We've created a plugin to easily create a bootstrap modal.</p>
+    <button class="btn btn-primary" id="modal-1">Launch Modal</button>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-12 col-md-12 col-12 col-sm-12">
     <div class="card">
@@ -59,31 +68,31 @@
           <ul class="nav nav-tabs justify-content-center" id="myTab6" role="tablist">
             <li class="nav-item">
               <a class="nav-link active text-center" id="home-tab6" data-toggle="tab" href="#home6" role="tab" aria-controls="home" aria-selected="true">
-                <span><i class="fas fa-home"></i></span>Kelola Periode</a>
+                <span><i class="far fa-calendar-alt"></i></span>Kelola Periode</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-center" id="profile-tab6" data-toggle="tab" href="#profile6" role="tab" aria-controls="profile" aria-selected="false">
-                <span><i class="fas fa-id-card"></i></span>Kelola Diskon</a>
+                <span><i class="fas fa-percentage"></i></span>Kelola Diskon</a>
             </li>
           </ul>
           <div class="tab-content tab-bordered" id="myTabContent6">
             <div class="tab-pane fade show active" id="home6" role="tabpanel" aria-labelledby="home-tab6">
-              <form method="POST" action="/register" class="needs-validation" enctype="multipart/form-data">
+              <form method="POST" action="/periode" class="needs-validation">
                     @csrf
                     <div class="row">
                       <div class="form-group col-6">
-                        <label for="name">{{ __('Awal Periode') }}</label>
-                        <input id="Awal" type="date" class="form-control @error('name') is-invalid @enderror" name="Awal" value="{{ old('name') }}" autocomplete="name" autofocus>
-                        @error('name')
+                        <label for="Awal">{{ __('Awal Periode') }}</label>
+                        <input id="Awal" type="date" class="form-control @error('Awal') is-invalid @enderror" name="Awal" value="{{ old('Awal') }}" autofocus>
+                        @error('Awal')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                       </div>
                       <div class="form-group col-6">
-                        <label for="no_telp">{{ __('Akhir Periode') }}</label>
-                        <input id="Akhir" type="date" class="form-control @error('no_telp') is-invalid @enderror" name="Akhir" value="{{ old('no_telp') }}" autocomplete="no_telp" autofocus>
-                        @error('no_telp')
+                        <label for="Akhir">{{ __('Akhir Periode') }}</label>
+                        <input id="Akhir" type="date" class="form-control @error('Akhir') is-invalid @enderror" name="Akhir" value="{{ old('Akhir') }}" autofocus>
+                        @error('Akhir')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -98,28 +107,27 @@
                   </form>
             </div>
             <div class="tab-pane fade" id="profile6" role="tabpanel" aria-labelledby="profile-tab6">
-              <form method="POST" action="/register" class="needs-validation" enctype="multipart/form-data">
+              <form method="POST" action="/diskon" class="needs-validation">
                     @csrf
                     <div class="row">
                       <div class="form-group col-6">
-                        <label for="name">{{ __('Periode') }}</label>
-                        <select class="form-control">
+                        <label for="PeriodeID">{{ __('Periode') }}</label>
+                        <select class="form-control @error('PeriodeID') is-invalid @enderror" name="PeriodeID" class="form-control">
                           <option value="">--Pilih--</option>
                           @foreach($periode as $p)
-                          <option value="">{{$p->Awal}}||{{$p->Akhir}}</option>
+                          <option value="{{$p->PeriodeID}}">{{$p->Awal}}||{{$p->Akhir}}</option>
                           @endforeach
                         </select>
-                        @error('name')
+                        @error('PeriodeID')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                       </div>
-                      <input id="id_role" type="hidden" class="form-control" name="id_role" value="4">
                       <div class="form-group col-6">
-                        <label for="no_telp">{{ __('Besar Diskon (%)') }}</label>
-                        <input id="Akhir" type="number" class="form-control @error('no_telp') is-invalid @enderror" name="diskon" value="{{ old('no_telp') }}" autocomplete="no_telp" autofocus>
-                        @error('no_telp')
+                        <label for="Diskon">{{ __('Besar Diskon (%)') }}</label>
+                        <input id="Diskon" type="number" class="form-control @error('Diskon') is-invalid @enderror" name="Diskon" value="{{ old('Diskon') }}" autofocus>
+                        @error('Diskon')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
