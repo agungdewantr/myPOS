@@ -16,7 +16,7 @@ class CreateDiskonTable extends Migration
         Schema::create('diskon', function (Blueprint $table) {
             $table->id('DiskonID');
             $table->integer('PeriodeID');
-            $table->integer('Diskon');
+            $table->float('Diskon');
             $table->timestamps();
         });
     }
