@@ -2980,3 +2980,63 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   100% {
     -webkit-transform: scale(1.2, 1.2);
     opacity: 0.0; } }
+
+    /*Penghalang*/
+    .penghalang {
+        display: none;
+        position: fixed;
+        z-index: 100000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .penghalangs {
+        display: none;
+        position: fixed;
+        z-index: -100000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    /*Modal */
+    .modal-content {
+        z-index: 10;
+        background-color: #fefefe;
+        margin: 10% auto auto 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+    }
+
+    .modal-contents {
+        z-index:-10;
+        background-color: #fefefe;
+        margin: 10% auto auto 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+    }
+
+    /*Tombol X*/
+    #tutup {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #tutup:hover,
+    #tutup:focus {
+        color: black;
+        cursor: pointer;
+    }

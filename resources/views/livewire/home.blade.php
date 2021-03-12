@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-lg-4 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
@@ -45,15 +46,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="card">
-  <div class="card-header">
-    <h4>Modal Demo</h4>
-  </div>
-  <div class="card-body">
-    <p class="mb-2">We've created a plugin to easily create a bootstrap modal.</p>
-    <button class="btn btn-primary" id="modal-1">Launch Modal</button>
   </div>
 </div>
 <div class="row">
@@ -165,8 +157,45 @@
                 <td>
                     <div class="row">
                         <div class="col">
-                            <form action="" method="POST">
-                                <a href=""><i class="far fa-edit"></i></a>
+                                <a href="" id="tombolku" class="but"><i class="far fa-edit"></i></a>
+                                <button id="tombolku" class="but">Open Modal</button>
+                                <div id="myModal" class="penghalang">
+                                    <div class="modal-content">
+                                        <span id="tutup">&times;</span>
+                                        <h4><center>Edit Periode</center></h4>
+                                        <form method="POST" action="/periode" class="needs-validation">
+                                              @csrf
+                                              <div class="row">
+                                                <div class="form-group col-6">
+                                                  <label for="Awal">{{ __('Awal Periode') }}</label>
+                                                  <input id="Awal" type="date" class="form-control @error('Awal') is-invalid @enderror" name="Awal" value="{{$p->Awal}}}" autofocus>
+                                                  @error('Awal')
+                                                      <span class="invalid-feedback" role="alert">
+                                                          <strong>{{ $message }}</strong>
+                                                      </span>
+                                                  @enderror
+                                                </div>
+                                                <div class="form-group col-6">
+                                                  <label for="Akhir">{{ __('Akhir Periode') }}</label>
+                                                  <input id="Akhir" type="date" class="form-control @error('Akhir') is-invalid @enderror" name="Akhir" value="{{$p->Akhir}}" autofocus>
+                                                  @error('Akhir')
+                                                      <span class="invalid-feedback" role="alert">
+                                                          <strong>{{ $message }}</strong>
+                                                      </span>
+                                                  @enderror
+                                                </div>
+                                              </div>
+                                              <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                                  {{ __('Save') }}
+                                                </button>
+                                              </div>
+                                            </form>
+                                        <br><br>
+                                        <a href="/transaksi" class="badge badge-warning">Kembali</a>
+                                    </div>
+                                </div>
+                                <form action="" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
