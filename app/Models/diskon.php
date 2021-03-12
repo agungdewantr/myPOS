@@ -11,6 +11,6 @@ class diskon extends Model
     protected $table = 'diskon';
     protected $PrimaryKey = 'DiskonID';
     protected $fillable = [
-        'PeriodeID', 'Diskon'
+        'Awal', 'Akhir', 'Diskon'
     ];
 }
