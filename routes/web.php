@@ -36,3 +36,5 @@ Route::post('/diskon', [App\Http\Livewire\Home::class, 'savediskon'])->name('sav
 Route::get('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'editdiskon'])->name('editdiskon');
 Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])->name('updatediskon');
 Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
+Route::post('/profit', [App\Http\Livewire\Home::class, 'saveProfit'])->name('saveProfit');
+Route::put('/profit/{id}', [App\Http\Livewire\Home::class, 'updateProfit'])->name('updateProfit');

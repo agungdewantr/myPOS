@@ -632,3 +632,21 @@ window.onclick = function(e) {
         modal.style.display = "none";
     }
 }
+
+var modal1 = document.getElementById('myModal1');
+var btn1 = document.getElementById("tombolku1");
+var span1 = document.getElementById("tutup1");
+
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+
+window.onclick = function(e) {
+    if (e.target == modal1) {
+        modal1.style.display = "none";
+    }
+}

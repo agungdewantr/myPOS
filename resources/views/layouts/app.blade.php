@@ -327,6 +327,9 @@
     <script>
 $('#myModal').modal('show');
 </script>
+<script>
+$('#myModal1').modal1('show');
+</script>
 <!-- <script type="text/javascript">
   $(document).ready(function() {
       $('.but').trigger('click');

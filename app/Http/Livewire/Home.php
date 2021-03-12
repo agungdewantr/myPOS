@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 use App\Models\diskon;
+use App\Models\Mprofit;
 use Livewire\Component;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,14 @@ class Home extends Component
     public function render()
     {
         $diskon = diskon::all();
-        return view('livewire.home', compact('diskon'));
+        $profit = Mprofit::all();
+        $cekprofit = Mprofit::all();
+        if (count($cekprofit) != 0) {
+          $cekprofit = true;
+        } else {
+          $cekprofit = false;
+        }
+        return view('livewire.home', compact('diskon','profit','cekprofit'));
     }
 
     public function savediskon(Request $request)
@@ -49,4 +57,23 @@ class Home extends Component
        diskon::where('DiskonID',$id)->delete();
       return redirect()->route('Home')->with(['success' => 'Diskon Berhasil Dihapus']);
     }
+
+    public function saveProfit(Request $request){
+      $request->validate([
+          'Profit'    => 'required'
+      ]);
+
+      Mprofit::create([
+        'Profit'  => $request->Profit/100
+      ]);
+      return redirect()->route('Home');
+    }
+
+    public function updateProfit(Request $request, $id) {
+      Mprofit::where('ProfitID',$id)
+      ->update([
+        'Profit'   => $request->Profit/100
+      ]);
+      return redirect()->route('Home')->with(['profit' => 'Profit Berhasil Diedit']);
+}
 }
