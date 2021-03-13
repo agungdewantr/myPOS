@@ -17,9 +17,11 @@ class Penjualan extends Component
 
   public function render()
   {
+    // $disc = DB::table('diskon')->join('barang', 'diskon.DiskonID', '=' ,'barang.DiskonID')->select('diskon.*','barang.*')->get();
     $penjualan_barang = DB::table('penjualan_barang')
       ->join('barang', 'penjualan_barang.BarangID', '=', 'barang.barangID')
-      ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang')
+      ->leftJoin('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
+      ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang','diskon.Diskon')
       ->where('penjualan_barang.PenjualanID', '=', NULL)
       ->get();
     $barang = DB::table('barang')

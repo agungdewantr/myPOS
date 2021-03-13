@@ -32,7 +32,11 @@
               <td>{{$pj->Harga+$pj->Harga*$profit->Profit}}</td>
               <td>{{$pj->Qty}}</td>
               <td>
-
+                @if($pj->Diskon == null)
+                -
+                @else
+                {{$pj->Diskon*100}}
+                @endif
               </td>
               <td>{{$pj->Total}}</td>
               <td>
