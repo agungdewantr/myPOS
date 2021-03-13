@@ -1,3 +1,4 @@
+@section('namamenu','Transaksi Penjualan')
 <div class="row">
   <div class="col-lg-7 col-md-12 col-12 col-sm-12">
     <div class="card">
@@ -18,6 +19,7 @@
               <th scope="col">Nama Barang</th>
               <th scope="col">Harga</th>
               <th scope="col">Qty</th>
+              <th scope="col">Disc %</th>
               <th scope="col">Total</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -27,8 +29,11 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{$pj->NamaBarang}}</td>
-              <td>{{$pj->Harga}}</td>
+              <td>{{$pj->Harga+$pj->Harga*$profit->Profit}}</td>
               <td>{{$pj->Qty}}</td>
+              <td>
+
+              </td>
               <td>{{$pj->Total}}</td>
               <td>
                 <div class="row">

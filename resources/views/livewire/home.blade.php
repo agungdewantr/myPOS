@@ -1,3 +1,4 @@
+@section('namamenu','Dashboard')
 @if ($message = Session::get('profit'))
 <div class="row">
   <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -162,7 +163,7 @@
               <td>{{$d->Awal}}</td>
               <td>{{$d->Akhir}}</td>
               <td>{{$d->Diskon*100}}</td>
-              <td><a href=""><i class="fas fa-info-circle"></i></a></td>
+              <td><a href="/diskon/{{$d->DiskonID}}/detail"><i class="fas fa-info-circle"></i></a></td>
               <td>
                   <div class="row">
                       <div class="col">

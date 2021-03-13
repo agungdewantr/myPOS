@@ -1,3 +1,4 @@
+@section('namamenu','Transaksi Pembelian')
 <div class="row">
   <div class="col-lg-7 col-md-12 col-12 col-sm-12">
     <div class="card">

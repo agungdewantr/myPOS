@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 Auth::routes();
+Route::group(['middleware' => 'auth'], function(){
 Route::get('/', App\Http\Livewire\Home::class)->name('Home');
 Route::get('penjualan', App\Http\Livewire\Penjualan::class)->name('Penjualan');
 Route::get('caribarang', [App\Http\Livewire\Penjualan::class, 'caribarang'])->name('caribarang');
@@ -34,7 +35,11 @@ Route::post('pembelian', [App\Http\Livewire\Pembelian::class, 'savetransaksi'])-
 Route::post('/periode', [App\Http\Livewire\Home::class, 'saveperiode'])->name('saveperiode');
 Route::post('/diskon', [App\Http\Livewire\Home::class, 'savediskon'])->name('savediskon');
 Route::get('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'editdiskon'])->name('editdiskon');
+Route::get('diskon/{id}/detail', [App\Http\Livewire\Barang::class, 'detaildiskon'])->name('detaildiskon');
+Route::put('diskon/adddiskontobarang', [App\Http\Livewire\Barang::class, 'adddiskontobarang'])->name('adddiskontobarang');
+route::put('diskon/{id}/deletebarangdiskon',  [App\Http\Livewire\Barang::class, 'deletebarangdiskon'])->name('deletebarangdiskon');
 Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])->name('updatediskon');
 Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
 Route::post('/profit', [App\Http\Livewire\Home::class, 'saveProfit'])->name('saveProfit');
 Route::put('/profit/{id}', [App\Http\Livewire\Home::class, 'updateProfit'])->name('updateProfit');
+});

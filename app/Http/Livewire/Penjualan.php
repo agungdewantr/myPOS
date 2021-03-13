@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 use App\Models\Mbarang;
 use App\Models\Mpenjualan;
+use App\Models\Mprofit;
 use App\Models\penjualan_barang;
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -21,12 +22,16 @@ class Penjualan extends Component
       ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang')
       ->where('penjualan_barang.PenjualanID', '=', NULL)
       ->get();
-    $barang = Mbarang::all();
+    $barang = DB::table('barang')
+            ->join('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
+            ->select('barang.*', 'diskon.Diskon')
+            ->get();
+    $profit = Mprofit::first();
     $totalpesanan = DB::table('penjualan_barang')
       ->select(DB::raw('SUM(Total) as totalPesanan'))
       ->where('PenjualanID', '=', NULL)
       ->first();
-    return view('livewire.penjualan', compact('penjualan_barang', 'barang', 'totalpesanan'));
+    return view('livewire.penjualan', compact('penjualan_barang', 'barang', 'totalpesanan','profit'));
   }
 
   public function saveitempesanan(Request $request){
@@ -34,7 +39,19 @@ class Penjualan extends Component
         'NamaBarang'   => 'required',
         'Qty'          => 'required'
     ]);
+    $profit = Mprofit::first();
     $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
+    if($databrg->DiskonID == NULL) {
+      $hargajual = $databrg->Harga + $databrg->Harga*$profit->Profit;
+    } else {
+      $databrg = DB::table('barang')
+              ->join('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
+              ->select('barang.*', 'diskon.Diskon')
+              ->where('barang.BarangID','=',$request->BarangID)
+              ->first();
+              $hargajual = $databrg->Harga + $databrg->Harga*$profit->Profit;
+              $hargajual = $hargajual - ($hargajual*$databrg->Diskon);
+    }
     $cekbarang = DB::table('penjualan_barang')
       ->where('BarangID', $request->BarangID)
       ->where('PenjualanID', NULL)
@@ -45,7 +62,7 @@ class Penjualan extends Component
       penjualan_barang::create([
         'BarangID' => $request->BarangID,
         'Qty'      => $request->Qty,
-        'Total'    => $databrg->Harga * $request->Qty,
+        'Total'    => $hargajual* $request->Qty,
       ]);
       return redirect('/penjualan');
   } else {
@@ -55,10 +72,10 @@ class Penjualan extends Component
       ->where('PenjualanID', NULL)
       ->first();
       Mbarang::where('BarangID', $request->BarangID)
-        ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
+        ->update(['Stok' => $databrg->Stok - $this->Qty]);
       penjualan_barang::where('BarangID', $request->BarangID)
         ->where('PenjualanID', NULL)
-        ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $databrg->Harga)]);
+        ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $hargajual)]);
       return redirect('/penjualan');
     }
   }

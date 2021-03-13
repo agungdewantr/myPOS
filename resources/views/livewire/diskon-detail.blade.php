@@ -7,17 +7,11 @@
     <meta name="robots" content="noindex,nofollow">
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>Detail Diskon</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <!-- CSS Libraries -->
-    <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons.min.css">
-    <link rel="stylesheet" href="../node_modules/weathericons/css/weather-icons-wind.min.css">
-    <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css"> -->
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{!! asset('assets1/css/style.css') !!}">
@@ -26,7 +20,6 @@
 </head>
 
 <body>
-  @yield('content')
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
@@ -172,14 +165,20 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a href="/profile" class="dropdown-item has-icon">
-  <i class="far fa-user"></i> Profile
-</a>
-<div class="dropdown-divider"></div>
-<form action="{{route('logout')}}" method="post">
-  @csrf
-  <button type="submit" class="dropdown-item has-icon text-danger" style="outline:none;"><i class="fas fa-sign-out-alt"></i><h6 class="small">Logout</h6></button>
-</form>
+                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <a href="features-profile.html" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
+                            </a>
+                            <a href="features-activities.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i> Activities
+                            </a>
+                            <a href="features-settings.html" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -211,75 +210,63 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>@yield('namamenu')</h1>
+                        <h1>Detail Diskon</h1>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-lg-8 col-md-12 col-12 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Statistics</h4>
-                                    <div class="card-header-action">
-                                        <div class="btn-group">
-                                            <a href="#" class="btn btn-primary">Week</a>
-                                            <a href="#" class="btn">Month</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myChart" height="182"></canvas>
-                                </div>
-                            </div>
+                    <div class="row">
+                      <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <h4>Daftar barang terdiskon</h4>
+                          </div>
+                          <div class="card-body">
+                            <p>Awal Periode Diskon : {{$diskon->Awal}} AKhir Periode Diskon : {{$diskon->Akhir}}</p>
+                              <div class="card-body">
+                                <ul class="list-group">
+                                  @foreach($barangDiskon as $bd)
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{$bd->NamaBarang}}
+                                    <span class="">
+                                      <form action="/diskon/{{$bd->BarangID}}/deletebarangdiskon" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="DiskonID" value="{{$diskon->DiskonID}}">
+                                      <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
+                                  </form>
+                                    </span>
+                                  </li>
+                                  @endforeach
+                                </ul>
+                              </div>
+                          </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-12 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Recent Activities</h4>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-unstyled list-unstyled-border">
-                                        <li class="media">
-                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-1.png" alt="avatar">
-                                            <div class="media-body">
-                                                <div class="float-right text-primary">Now</div>
-                                                <div class="media-title">Farhan A Mujib</div>
-                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-2.png" alt="avatar">
-                                            <div class="media-body">
-                                                <div class="float-right">12m</div>
-                                                <div class="media-title">Ujang Maman</div>
-                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-3.png" alt="avatar">
-                                            <div class="media-body">
-                                                <div class="float-right">17m</div>
-                                                <div class="media-title">Rizal Fakhri</div>
-                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-4.png" alt="avatar">
-                                            <div class="media-body">
-                                                <div class="float-right">21m</div>
-                                                <div class="media-title">Alfa Zulkarnain</div>
-                                                <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="text-center pt-1 pb-1">
-                                        <a href="#" class="btn btn-primary btn-lg btn-round">
-                                            View All
-                                        </a>
-                                    </div>
-                                </div>
+                      </div>
+                        <div class="col-lg-5 col-md-12 col-12 col-sm-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h4>Pilih barang untuk diskon</h4>
                             </div>
+                            <div class="card-body">
+                              <div class="row">
+                              <form action="/diskon/adddiskontobarang" method="post">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-row">
+                                  <div class="form-group">
+                                    <div class="input-field col-12">
+                                    <label for="NamaBarang">Nama Barang</label>
+                                    <input type="hidden" name="BarangID" id="BarangID" value="">
+                                    <input type="hidden" name="DiskonID" id="DiskonID" value="{{$diskon->DiskonID}}">
+                                    <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                  </div>
+                                  </div>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>
                         </div>
-                    </div> -->
-                    {{$slot}}
+                      </div>
+                    </div>
                 </section>
             </div>
             <footer class="main-footer">
@@ -319,18 +306,38 @@
     <script src="{!! asset('assets1/js/page/index-0.js') !!}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-$('#myModal').modal('show');
-</script>
-<script>
-$('#myModal1').modal1('show');
-</script>
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-      $('.but').trigger('click');
-  }) -->
-</script>
-    @yield('script')
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $.ajax({
+        type: 'get',
+        url: '{!!URL::to('caribarang')!!}',
+        success: function(response) {
+          console.log(response);
+          //material css
+          //convert array to object
+          var hargaArray = response;
+          var dataharga = {};
+          var dataharga2 = {};
+          for (var i = 0; i < hargaArray.length; i++) {
+            dataharga[hargaArray[i].NamaBarang] = null;
+            dataharga2[hargaArray[i].NamaBarang] = hargaArray[i];
+          }
+
+          // console.log("dataharga2");
+          // console.log(dataharga2);
+
+          $('input#NamaBarang').autocomplete({
+            data: dataharga,
+            onAutocomplete: function(reqdata) {
+              console.log(reqdata);
+              $('#BarangID').val(dataharga2[reqdata]['BarangID']);
+            }
+          });
+          //end
+        }
+      })
+    });
+  </script>
     @livewireScripts
 </body>
 

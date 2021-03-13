@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 use App\Models\Mbarang;
+use App\Models\diskon;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,5 +85,31 @@ class Barang extends Component
     {
         Mbarang::where('BarangID', $id)->delete();
         return redirect('/barang');
+    }
+
+    public function detaildiskon($id)
+    {
+      $diskon = diskon::where('DiskonID', $id)->first();
+      $barangDiskon = Mbarang::where('DiskonID',$id)->get();
+      return view('livewire.diskon-detail',compact('barangDiskon','diskon'));
+    }
+
+    public function adddiskontobarang(Request $request){
+      $request->validate([
+          'NamaBarang'    => 'required'
+      ]);
+      Mbarang::where('BarangID', $request->BarangID)
+        ->update([
+          'DiskonID'   => $request->DiskonID
+        ]);
+      return redirect("/diskon/$request->DiskonID/detail");
+    }
+
+    public function deletebarangdiskon(Request $request, $id){
+      Mbarang::where('BarangID', $id)
+        ->update([
+          'DiskonID'   => NULL
+        ]);
+      return redirect("/diskon/$request->DiskonID/detail");
     }
 }
