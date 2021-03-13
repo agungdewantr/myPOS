@@ -128,15 +128,19 @@ class Penjualan extends Component
 
   public function savetransaksi(Request $request)
   {
-    Mpenjualan::create([
-      'TotalPenjualan'    => $request->totalHidden,
-      'NominalPembayaran' => $request->inppembayaran
-    ]);
-    $PenjualanID = DB::table('penjualan')
-      ->select(DB::raw('MAX(PenjualanID) as id'))
-      ->first();
-    penjualan_barang::where('PenjualanID', NULL)
-      ->update(['PenjualanID' => $PenjualanID->id]);
-    return redirect('/penjualan');
+    if($request->inppembayaran < $request->totalHidden) {
+      return redirect('/penjualan')->with(['pembayaran' => 'Nominal Pembayaran Kurang']);
+    } else {
+      Mpenjualan::create([
+        'TotalPenjualan'    => $request->totalHidden,
+        'NominalPembayaran' => $request->inppembayaran
+      ]);
+      $PenjualanID = DB::table('penjualan')
+        ->select(DB::raw('MAX(PenjualanID) as id'))
+        ->first();
+      penjualan_barang::where('PenjualanID', NULL)
+        ->update(['PenjualanID' => $PenjualanID->id]);
+        return redirect('/penjualan')->with(['pembayaran' => 'Transaksi Tersimpan']);
+    }
   }
 }

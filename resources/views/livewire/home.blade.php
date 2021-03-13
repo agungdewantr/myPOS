@@ -22,6 +22,9 @@
         <div class="card-body">
           @if(count($profit) <= 0)
            0 %
+           <script type="text/javascript">
+             alert("Profit Belum disetting");
+           </script>
           @else
           @foreach($profit as $p)
             {{$p->Profit*100}} %
