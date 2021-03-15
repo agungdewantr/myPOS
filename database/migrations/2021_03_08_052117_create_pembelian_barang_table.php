@@ -17,7 +17,10 @@ class CreatePembelianBarangTable extends Migration
             $table->id('pbbID');
             $table->integer('PembelianID')->nullable();
             $table->integer('BarangID');
-            $table->integer('Qty');
+            $table->integer('Harga');
+            $table->integer('Qty1');
+            $table->integer('Qty2');
+            $table->float('Profit');
             $table->integer('Total');
             $table->timestamps();
         });
