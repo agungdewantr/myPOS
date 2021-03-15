@@ -19,21 +19,9 @@
               @foreach($penjualan as $p)
               <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$p->create_at}}</td>
+                  <td>{{$p->created_at}}</td>
                   <td>{{$p->TotalPenjualan}}</td>
                   <td><a href="/historypenjualan/{{$p->PenjualanID}}/detail"><i class="fas fa-info-circle"></i></a></td>
-                  <!-- <td>
-                      <div class="row">
-                          <div class="col">
-                              <form action="/barang/{{$B->BarangID}}/delete" method="POST">
-                                  <a href="/barang/{{$B->BarangID}}/edit"><i class="far fa-edit"></i></a>
-                                  @csrf
-                                  @method('DELETE')
-                                  <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
-                              </form>
-                          </div>
-                      </div>
-                  </td> -->
               </tr>
               @endforeach
           </tbody>
