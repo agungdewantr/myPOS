@@ -18,7 +18,9 @@
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
               <th scope="col">Harga</th>
-              <th scope="col">Qty</th>
+              <th scope="col">Qty Box</th>
+              <th scope="col">Qty Satuan</th>
+              <th scope="col">Profit</th>
               <th scope="col">Total</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -29,7 +31,9 @@
               <td>{{$loop->iteration}}</td>
               <td>{{$pb->NamaBarang}}</td>
               <td>{{$pb->Harga}}</td>
-              <td>{{$pb->Qty}}</td>
+              <td>{{$pb->Qty1}}</td>
+              <td>{{$pb->Qty2}}</td>
+              <td>{{$pb->Profit}}</td>
               <td>{{$pb->Total}}</td>
               <td>
                 <div class="row">

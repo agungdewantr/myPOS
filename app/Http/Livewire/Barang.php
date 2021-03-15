@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class Barang extends Component
 {
-    public $NamaBarang;
     public $barangID;
-    public $Stok;
+    public $NamaBarang;
     public $Harga;
-    public $Kadaluarsa;
+    public $Satuan1;
+    public $Satuan2;
+    public $Profit;
     public $updateMode = false;
 
     public function mount()
@@ -29,11 +30,12 @@ class Barang extends Component
 
     private function initializedProperties()
     {
-        $this->NamaBarang;
-        $this->Stok;
-        $this->Harga;
-        $this->Kadaluarsa;
         $this->barangID;
+        $this->NamaBarang;
+        $this->Harga;
+        $this->Satuan1;
+        $this->Satuan2;
+        $this->Profit;
     }
 
     public function CreateBarang(Request $request)
