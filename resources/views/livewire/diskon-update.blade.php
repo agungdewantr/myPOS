@@ -56,10 +56,10 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Stisla</a>
+                        <a href="/">myPOS</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">St</a>
+                        <a href="/">St</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li><a class="nav-link" href="/"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
@@ -93,7 +93,7 @@
                               <h4>Profit yang diterapkan</h4>
                             </div>
                             <div class="card-body">
-                              10 %
+                              Rp. 0000
                               <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                               <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
                             </div>
@@ -110,7 +110,7 @@
                               <h4>Penjualan Bulan ini</h4>
                             </div>
                             <div class="card-body">
-                              10 %
+                              Rp. 0000
                             </div>
                           </div>
                         </div>

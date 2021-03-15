@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex,nofollow">
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>myPOS</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -63,16 +63,16 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Stisla</a>
+                        <a href="/">myPOS</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">St</a>
+                        <a href="/">St</a>
                     </div>
                     <ul class="sidebar-menu">
-                        <li><a class="nav-link" href="/"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
-                        <li><a class="nav-link" href="/penjualan"><i class="far fa-square"></i> <span>Penjualan</span></a></li>
-                        <li><a class="nav-link" href="/pembelian"><i class="far fa-square"></i> <span>Pembelian</span></a></li>
-                        <li><a class="nav-link" href="/barang"><i class="far fa-square"></i> <span>Barang</span></a></li>
+                        <li><a class="nav-link" href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                        <li><a class="nav-link" href="/penjualan"><i class="fas fa-money-bill-wave-alt"></i> <span>Penjualan</span></a></li>
+                        <li><a class="nav-link" href="/pembelian"><i class="fas fa-cart-arrow-down"></i> <span>Pembelian</span></a></li>
+                        <li><a class="nav-link" href="/barang"><i class="fas fa-database"></i> <span>Barang</span></a></li>
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

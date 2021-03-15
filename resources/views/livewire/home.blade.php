@@ -114,7 +114,7 @@
           <h4>Penjualan Bulan ini</h4>
         </div>
         <div class="card-body">
-          10 %
+          Rp. 0000
         </div>
       </div>
     </div>
@@ -129,7 +129,7 @@
           <h4>Pembelian bulan ini</h4>
         </div>
         <div class="card-body">
-          10 %
+          Rp. 0000
         </div>
       </div>
     </div>
