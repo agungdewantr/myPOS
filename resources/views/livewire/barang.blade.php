@@ -12,19 +12,14 @@
             <strong>{{ $message }}</strong>
           </div>
         @endif
-        {!! \DNS1D::getBarcodeHTML("4445645656", "I25+") !!}<br>
-        {!! \DNS1D::getBarcodeHTML("454584685532212", "I25+") !!}<br>
-        <img src="data:image/png;base64,{{\DNS1D::getBarcodeHTML("4445645659", "I25+")}}" alt="barcode" style="width: 80px;" />
-        <img src="data:image/png;base64,{{\DNS2D::getBarcodePNG("4445645656", 'QRCODE')}}" alt="barcode" style="width: 80px;" />
         <table class="table table-sm" align="center">
           <thead>
             <tr>
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
-              <th scope="col">Jumlah</th>
+              <th scope="col">Stok</th>
               <th scope="col">Harga</th>
               <th scope="col">Barcode</th>
-              <th scope="col">Tgl Kadaluarsa</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -35,8 +30,7 @@
                   <td>{{$B->NamaBarang}}</td>
                   <td>{{$B->Stok}}</td>
                   <td>Rp{{$B->Harga}}</td>
-                  <td><img src="data:image/png;base64,{{\DNS2D::getBarcodePNG("4445645659", 'QRCODE')}}" alt="barcode" style="width: 80px;" /></td>
-                  <td>{{$B->Kadaluarsa}}</td>
+                  <td>{!! \DNS1D::getBarcodeHTML($B->Kode, "I25+") !!}</td>
                   <td>
                       <div class="row">
                           <div class="col">

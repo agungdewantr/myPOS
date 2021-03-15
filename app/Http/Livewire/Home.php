@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 use App\Models\diskon;
-use App\Models\Mprofit;
 use Livewire\Component;
 use Illuminate\Http\Request;
 
@@ -11,14 +10,7 @@ class Home extends Component
     public function render()
     {
         $diskon = diskon::all();
-        $profit = Mprofit::all();
-        $cekprofit = Mprofit::all();
-        if (count($cekprofit) != 0) {
-          $cekprofit = true;
-        } else {
-          $cekprofit = false;
-        }
-        return view('livewire.home', compact('diskon','profit','cekprofit'));
+        return view('livewire.home', compact('diskon'));
     }
 
     public function savediskon(Request $request)

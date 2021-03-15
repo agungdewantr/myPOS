@@ -67,23 +67,48 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="row">
-                      <div class="input-field col-8">
-                        <label for="jenis">Nama Barang</label>
+                      <div class="input-field col-7">
+                        <label for="NamaBarang">Nama Barang</label>
                         <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
-                        @error('jenis')
+                        @error('NamaBarang')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
-                      <div class="input-field col-4">
-                        <label for="jenis">Qty</label>
+                      <div class="input-field col-5">
+                        <label for="Qty">Kode Barang</label>
                         <input type="number" id="Qty" name="Qty" value="{{old('Qty')}}" class="form-control @error('Qty') is-invalid @enderror" autocomplete="off">
                         <input type="hidden" name="BarangID" value="" id="BarangID">
-                        @error('jenis')
+                        @error('Qty')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Submit</button>
+                    <div class="row">
+                      <div class="input-field col-6">
+                        <label for="Harga">Harga</label>
+                        <input type="text" id="Harga" name="Harga" value="{{old('Harga')}}" class="form-control @error('Harga') is-invalid @enderror" autocomplete="off">
+                        @error('Harga')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                      </div>
+                      <div class="input-field col-6">
+                        <label for="Profit">Profit (%)</label>
+                        <input type="number" id="Profit" name="Profit" value="{{old('Profit')}}" class="form-control @error('Profit') is-invalid @enderror" autocomplete="off">
+                        @error('Profit')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col-12">
+                        <label for="Total">Total</label>
+                        <input type="number" id="Total" name="Total" value="{{old('Total')}}" class="form-control @error('Total') is-invalid @enderror" autocomplete="off">
+                        @error('Total')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                      </div>
+                    </div>
+                    <button class="btn btn-primary mt-2" type="submit">Submit</button>
                   </div>
                 </div>
               </div>

@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class Barang extends Component
 {
-    public $barangID;
-    public $NamaBarang;
-    public $Harga;
-    public $Satuan1;
-    public $Satuan2;
-    public $Profit;
-    public $updateMode = false;
 
     public function mount()
     {
@@ -30,27 +23,21 @@ class Barang extends Component
 
     private function initializedProperties()
     {
-        $this->barangID;
-        $this->NamaBarang;
-        $this->Harga;
-        $this->Satuan1;
-        $this->Satuan2;
-        $this->Profit;
+        // $this->barangID;
+        // $this->NamaBarang;
+        // $this->Harga;
+        // $this->Satuan1;
+        // $this->Satuan2;
+        // $this->Profit;
     }
 
     public function CreateBarang(Request $request)
     {
         $request->validate([
-            'NamaBarang'    => 'required',
-            'Stok'          => 'required',
-            'Harga'         => 'required',
-            'Kadaluarsa'    => 'required'
+            'NamaBarang'    => 'required'
         ]);
         Mbarang::create([
-            'NamaBarang'     => $request->NamaBarang,
-            'Stok'           => $request->Stok,
-            'Harga'          => $request->Harga,
-            'Kadaluarsa'     => $request->Kadaluarsa
+            'NamaBarang'     => $request->NamaBarang
         ]);
         return redirect('/barang');
     }
