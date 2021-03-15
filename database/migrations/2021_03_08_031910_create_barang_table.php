@@ -17,10 +17,10 @@ class CreateBarangTable extends Migration
             $table->id('BarangID');
             $table->integer('DiskonID')->nullable();
             $table->string('NamaBarang');
-            $table->integer('Harga');
-            $table->integer('Satuan1');
-            $table->integer('Satuan2');
-            $table->float('Margin');
+            $table->integer('Harga')->nullable();
+            $table->integer('Satuan1')->nullable();
+            $table->integer('Satuan2')->nullable();
+            $table->float('Margin')->nullable();
             $table->string('Kode')->nullable();
             $table->timestamps();
         });
