@@ -42,4 +42,5 @@ Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])-
 Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
 Route::post('/profit', [App\Http\Livewire\Home::class, 'saveProfit'])->name('saveProfit');
 Route::put('/profit/{id}', [App\Http\Livewire\Home::class, 'updateProfit'])->name('updateProfit');
+Route::get('/historypenjualan', App\Http\Livewire\HistoryPenjualan::class)->name('historypenjualan');
 });
