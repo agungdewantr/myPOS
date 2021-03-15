@@ -41,4 +41,5 @@ route::put('diskon/{id}/deletebarangdiskon',  [App\Http\Livewire\Barang::class, 
 Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])->name('updatediskon');
 Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
 Route::get('/historypenjualan', App\Http\Livewire\HistoryPenjualan::class)->name('historypenjualan');
+Route::get('/satuan', App\Http\Livewire\Satuan::class)->name('satuan');
 });

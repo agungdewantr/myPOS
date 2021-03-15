@@ -1,4 +1,4 @@
-@section('namamenu','Transaksi Pembelian')
+@section('namamenu','Satuan')
 <div class="row">
   <div class="col-lg-7 col-md-12 col-12 col-sm-12">
     <div class="card">
@@ -16,29 +16,21 @@
           <thead>
             <tr>
               <th scope="col">No</th>
-              <th scope="col">Nama Barang</th>
-              <th scope="col">Qty</th>
               <th scope="col">Satuan</th>
-              <th scope="col">Harga</th>
-              <th scope="col">Profit</th>
-              <th scope="col">Total</th>
+              <th scope="col">Jumlah</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($pembelian_barang as $pb)
+            @foreach($satuan as $s)
             <tr>
               <td>{{$loop->iteration}}</td>
-              <td>{{$pb->NamaBarang}}</td>
-              <td>{{$pb->Qty}}</td>
-              <td>{{$pb->Satuan}}</td>
-              <td>{{$pb->Harga}}</td>
-              <td>{{$pb->Profit}}</td>
-              <td>{{$pb->Total}}</td>
+              <td>{{$s->Satuan}}</td>
+              <td>{{$s->Jumlah}}</td>
               <td>
                 <div class="row">
                   <div class="col">
-                    <form action="/pembelian/{{$pb->pbbID}}/hapus" method="POST">
+                    <form action="" method="POST">
                       @csrf
                       @method('DELETE')
                       <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0);"><i class="fas fa-trash-alt" style="color: red;"></i></button>
@@ -56,32 +48,16 @@
   <div class="col-lg-5 col-md-12 col-12 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4>Tambah Transaksi</h4>
+        <h4>Tambah Satuan</h4>
       </div>
       <div class="card-body">
         <div class="row">
-          <form action="/pembelian/keranjang" method="post">
+          <form action="" method="post">
             @csrf
             <div class="form-row">
               <div class="form-group">
                 <div class="row">
                   <div class="col-12">
-                    <div class="row">
-                      <div class="input-field col-9">
-                        <label for="NamaBarang">Nama Barang</label>
-                        <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
-                        @error('NamaBarang')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                      <div class="input-field col-3">
-                        <label for="Profit">Profit (%)</label>
-                        <input type="number" id="Profit" name="Profit" value="{{old('Profit')}}" class="form-control @error('Profit') is-invalid @enderror" autocomplete="off">
-                        @error('Profit')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                    </div>
                     <div class="row">
                       <div class="input-field col-6">
                         <label for="Satuan">Satuan</label>
@@ -91,26 +67,9 @@
                         @enderror
                       </div>
                       <div class="input-field col-6">
-                        <label for="Qty">Qty</label>
-                        <input type="number" id="Qty" name="Qty" value="{{old('Qty')}}" class="form-control @error('Qty') is-invalid @enderror" autocomplete="off">
-                        <input type="hidden" name="BarangID" value="" id="BarangID">
-                        @error('Qty')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="input-field col-6">
-                        <label for="Harga">Harga</label>
-                        <input type="text" id="Harga" name="Harga" value="{{old('Harga')}}" class="form-control @error('Harga') is-invalid @enderror" autocomplete="off">
-                        @error('Harga')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                      <div class="input-field col-6">
-                        <label for="Total">Total</label>
-                        <input type="number" id="Total" name="Total" value="{{old('Total')}}" class="form-control @error('Total') is-invalid @enderror" autocomplete="off">
-                        @error('Total')
+                        <label for="Jumlah">Jumlah</label>
+                        <input type="number" id="Jumlah" name="Jumlah" value="{{old('Jumlah')}}" class="form-control @error('Jumlah') is-invalid @enderror" autocomplete="off">
+                        @error('Jumlah')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
@@ -126,7 +85,7 @@
     </div>
   </div>
 </div>
-@section('script')
+<!-- @section('script')
 <script type="text/javascript">
   $(document).ready(function() {
     $.ajax({
@@ -187,5 +146,5 @@ function formatRupiah(angka, prefix) {
   rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
   return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
-</script>
+</script> -->
 @endsection

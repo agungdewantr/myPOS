@@ -18,8 +18,7 @@ class CreateBarangTable extends Migration
             $table->integer('DiskonID')->nullable();
             $table->string('NamaBarang');
             $table->integer('Harga')->nullable();
-            $table->integer('Satuan1')->nullable();
-            $table->integer('Satuan2')->nullable();
+            $table->integer('Stok')->nullable();
             $table->float('Margin')->nullable();
             $table->string('Kode')->nullable();
             $table->timestamps();
