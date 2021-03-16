@@ -34,10 +34,15 @@ class Barang extends Component
     public function CreateBarang(Request $request)
     {
         $request->validate([
-            'NamaBarang'    => 'required'
+            'NamaBarang'    => 'required',
+            'Profit'        => 'required',
+            'Kode'          => 'required'
         ]);
         Mbarang::create([
-            'NamaBarang'     => $request->NamaBarang
+            'NamaBarang'     => $request->NamaBarang,
+            'Profit'        => $request->Profit /100,
+            'Kode'          => $request->Kode
+
         ]);
         return redirect('/barang');
     }
@@ -54,18 +59,12 @@ class Barang extends Component
     {
         $request->validate([
             'NamaBarang'    => 'required',
-            'Stok'          => 'required',
-            'Harga'         => 'required',
-            'Kadaluarsa'    => 'required'
+            'Profit'          => 'required'
         ]);
-
-        $EditBarang = Mbarang::where('BarangID', $request->BarangID)->first();
         Mbarang::where('BarangID', $request->BarangID)
           ->update([
             'NamaBarang'   => $request->NamaBarang,
-            'Stok'         => $EditBarang->Stok +  $request->Stok,
-            'Harga'        => $request->Harga,
-            'Kadaluarsa'   => $request->Kadaluarsa
+            'Profit'   => $request->Profit/100
           ]);
         return redirect('/barang');
     }

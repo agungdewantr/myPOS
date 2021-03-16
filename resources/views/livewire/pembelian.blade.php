@@ -20,7 +20,6 @@
               <th scope="col">Qty</th>
               <th scope="col">Satuan</th>
               <th scope="col">Harga</th>
-              <th scope="col">Profit</th>
               <th scope="col">Total</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -31,9 +30,8 @@
               <td>{{$loop->iteration}}</td>
               <td>{{$pb->NamaBarang}}</td>
               <td>{{$pb->Qty}}</td>
-              <td>{{$pb->Satuan}}</td>
+              <td>{{$pb->SatuanID}}</td>
               <td>{{$pb->Harga}}</td>
-              <td>{{$pb->Profit}}</td>
               <td>{{$pb->Total}}</td>
               <td>
                 <div class="row">
@@ -70,35 +68,38 @@
                       <div class="input-field col-9">
                         <label for="NamaBarang">Nama Barang</label>
                         <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
+                        <input type="hidden" name="BarangID" id="BarangID" value="">
                         @error('NamaBarang')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
                       <div class="input-field col-3">
                         <label for="Profit">Profit (%)</label>
-                        <input type="number" id="Profit" name="Profit" value="{{old('Profit')}}" class="form-control @error('Profit') is-invalid @enderror" autocomplete="off">
+                        <input type="number" id="Profit" name="Profit" value="" readonly class="form-control @error('Profit') is-invalid @enderror" autocomplete="off">
                         @error('Profit')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
                     </div>
                     <div class="row">
-                      <div class="input-field col-6">
-                        <label for="Satuan">Satuan</label>
-                        <input type="text" id="Satuan" name="Satuan" value="{{old('Satuan')}}" class="form-control @error('Satuan') is-invalid @enderror" autocomplete="off">
-                        @error('Satuan')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                      <div class="input-field col-6">
-                        <label for="Qty">Qty</label>
-                        <input type="number" id="Qty" name="Qty" value="{{old('Qty')}}" class="form-control @error('Qty') is-invalid @enderror" autocomplete="off">
-                        <input type="hidden" name="BarangID" value="" id="BarangID">
-                        @error('Qty')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+                      <div class="input-field col-12">
+                        <label for="Satuan">Qty</label>
+                        <div class="input-group mb-3">
+                        <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <select class="form-control @error('Satuan') is-invalid @enderror" name="SatuanID" id="SatuanID">
+                              <option>--Pilih Satuan--</option>
+                              @foreach($satuan as $s)
+                              <option value="{{$s->SatuanID}}">{{$s->Satuan}}</option>
+                              @endforeach
+                            </select>
+                            @error('Qty')
+                              <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
                       </div>
                     </div>
+                  </div>
                     <div class="row">
                       <div class="input-field col-6">
                         <label for="Harga">Harga</label>
@@ -152,6 +153,7 @@
           onAutocomplete: function(reqdata) {
             console.log(reqdata);
             $('#BarangID').val(dataharga2[reqdata]['BarangID']);
+            $('#Profit').val(dataharga2[reqdata]['Profit']*100);
         }
         });
         //end
@@ -159,14 +161,11 @@
     })
   });
   $(document).ready(function() {
-    $("#totalHidden, #rupiah1, #rupiah, #kembalian, #inpkembalian").keyup(function() {
-      var total = $("#totalHidden").val();
-      var jmlpembayaran = $("#rupiah1").val();
-      var kembalian = parseInt(jmlpembayaran) - parseInt(total);
-      $("#inpkembalian").val(kembalian);
-      var tampilkembalian = kembalian.toString();
-      document.getElementById("rupiahh").innerHTML = formatRupiah(jmlpembayaran, "Rp.");
-      document.getElementById("kembalian").innerHTML = formatRupiah(tampilkembalian, "Rp.");
+    $("#Total, #Harga, #Qty").keyup(function() {
+      var Harga = $("#Harga").val();
+      var Qty = $("#Qty").val();
+      var Total = parseInt(Harga) * parseInt(Qty);
+      $("#Total").val(Total);
     });
   });
 

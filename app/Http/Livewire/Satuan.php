@@ -13,4 +13,17 @@ class Satuan extends Component
         $satuan = Msatuan::all();
         return view('livewire.satuan', compact('satuan'));
     }
+
+    public function createsatuan(Request $request){
+      $request->validate([
+          'Satuan'   => 'required',
+          'Jumlah'          => 'required'
+      ]);
+      Msatuan::create([
+        'Satuan' => $request->Satuan,
+        'Jumlah'      => $request->Jumlah
+      ]);
+
+      return redirect('/satuan');
+    }
 }

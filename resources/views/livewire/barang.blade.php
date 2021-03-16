@@ -18,8 +18,9 @@
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
               <th scope="col">Stok</th>
-              <th scope="col">Harga</th>
+              <th scope="col">Harga (Pcs)</th>
               <th scope="col">Barcode</th>
+              <th scope="col">Profit</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -30,7 +31,8 @@
                   <td>{{$B->NamaBarang}}</td>
                   <td>{{$B->Stok}}</td>
                   <td>Rp{{$B->Harga}}</td>
-                  <td>{!! \DNS1D::getBarcodeHTML($B->Kode, "I25+") !!}</td>
+                  <td>{!! \DNS1D::getBarcodeHTML($B->Kode, "I25+") !!}{{$B->Kode}}</td>
+                  <td>{{$B->Profit*100}} %</td>
                   <td>
                       <div class="row">
                           <div class="col">

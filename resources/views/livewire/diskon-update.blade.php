@@ -62,10 +62,12 @@
                         <a href="/">St</a>
                     </div>
                     <ul class="sidebar-menu">
-                        <li><a class="nav-link" href="/"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
-                        <li><a class="nav-link" href="/penjualan"><i class="far fa-square"></i> <span>Penjualan</span></a></li>
-                        <li><a class="nav-link" href="/pembelian"><i class="far fa-square"></i> <span>Pembelian</span></a></li>
-                        <li><a class="nav-link" href="/barang"><i class="far fa-square"></i> <span>Barang</span></a></li>
+                      <li><a class="nav-link" href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                      <li><a class="nav-link" href="/penjualan"><i class="fas fa-money-bill-wave-alt"></i> <span>Penjualan</span></a></li>
+                      <li><a class="nav-link" href="/pembelian"><i class="fas fa-cart-arrow-down"></i> <span>Pembelian</span></a></li>
+                      <li><a class="nav-link" href="/barang"><i class="fas fa-database"></i> <span>Barang</span></a></li>
+                      <li><a class="nav-link" href="/historypenjualan"><i class="fas fa-history"></i> <span>Histori Transaksi</span></a></li>
+                      <li><a class="nav-link" href="/satuan"><i class=""></i> <span>Satuan</span></a></li>
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

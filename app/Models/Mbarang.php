@@ -11,6 +11,6 @@ class Mbarang extends Model
     protected $table = 'barang';
     protected $PrimaryKey = 'BarangID';
     protected $fillable = [
-        'DiskonID','NamaBarang','Harga','Stok','Margin','Kode'
+        'DiskonID','NamaBarang','Harga','Stok','Profit','Kode'
     ];
 }

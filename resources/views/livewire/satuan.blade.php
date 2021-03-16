@@ -1,9 +1,9 @@
-@section('namamenu','Satuan')
+@section('namamenu','Satuan Barang')
 <div class="row">
   <div class="col-lg-7 col-md-12 col-12 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4>Pesan Barang</h4>
+        <h4>Daftar Satuan Barang</h4>
       </div>
       <div class="card-body">
         @if ($message = Session::get('success'))

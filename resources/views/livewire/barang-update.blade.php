@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex,nofollow">
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>Update Barang</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -62,10 +62,12 @@
                         <a href="/">St</a>
                     </div>
                     <ul class="sidebar-menu">
-                        <li><a class="nav-link" href="/"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
-                        <li><a class="nav-link" href="/penjualan"><i class="far fa-square"></i> <span>Penjualan</span></a></li>
-                        <li><a class="nav-link" href="/pembelian"><i class="far fa-square"></i> <span>Pembelian</span></a></li>
-                        <li><a class="nav-link" href="/barang"><i class="far fa-square"></i> <span>Barang</span></a></li>
+                      <li><a class="nav-link" href="/"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                      <li><a class="nav-link" href="/penjualan"><i class="fas fa-money-bill-wave-alt"></i> <span>Penjualan</span></a></li>
+                      <li><a class="nav-link" href="/pembelian"><i class="fas fa-cart-arrow-down"></i> <span>Pembelian</span></a></li>
+                      <li><a class="nav-link" href="/barang"><i class="fas fa-database"></i> <span>Barang</span></a></li>
+                      <li><a class="nav-link" href="/historypenjualan"><i class="fas fa-history"></i> <span>Histori Transaksi</span></a></li>
+                      <li><a class="nav-link" href="/satuan"><i class=""></i> <span>Satuan</span></a></li>
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -83,98 +85,110 @@
                         <h1>Kelola Barang</h1>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Kelola Barang</h3>
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Nama Barang</th>
-                                                <th scope="col">Jumlah</th>
-                                                <th scope="col">Harga</th>
-                                                <th scope="col">Tgl Kadaluarsa</th>
-                                                <th scope="col">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($barang as $B)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$B->NamaBarang}}</td>
-                                                <td>{{$B->Stok}}</td>
-                                                <td>Rp{{$B->Harga}}</td>
-                                                <td>{{$B->Kadaluarsa}}</td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <form action="" method="POST">
-                                                                <a href="/barang/{{$B->BarangID}}/edit"><i class="far fa-edit"></i></a>
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        @endforeach
-                                    </table>
-                                </div>
-                            </div>
+                      <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                          <div class="card-header">
+                            <h4>Kelola Barang</h4>
+                          </div>
+                          <div class="card-body">
+                            @if ($message = Session::get('success'))
+                              <div class="alert alert-warning">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                              </div>
+                            @endif
+                            <table class="table table-sm" align="center">
+                              <thead>
+                                <tr>
+                                  <th scope="col">No</th>
+                                  <th scope="col">Nama Barang</th>
+                                  <th scope="col">Stok</th>
+                                  <th scope="col">Harga (Pcs)</th>
+                                  <th scope="col">Barcode</th>
+                                  <th scope="col">Profit</th>
+                                  <th scope="col">Aksi</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach($barang as $B)
+                                  <tr>
+                                      <td>{{$loop->iteration}}</td>
+                                      <td>{{$B->NamaBarang}}</td>
+                                      <td>{{$B->Stok}}</td>
+                                      <td>Rp{{$B->Harga}}</td>
+                                      <td>{!! \DNS1D::getBarcodeHTML($B->Kode, "I25+") !!}{{$B->Kode}}</td>
+                                      <td>{{$B->Profit*100}} %</td>
+                                      <td>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <form action="/barang/{{$B->BarangID}}/delete" method="POST">
+                                                      <a href="/barang/{{$B->BarangID}}/edit"><i class="far fa-edit"></i></a>
+                                                      @csrf
+                                                      @method('DELETE')
+                                                      <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0); position: absolute; width:0.1px; outline:none;"><i class="d-inline fas fa-trash-alt" style="color: red;"></i></button>
+                                                  </form>
+                                              </div>
+                                          </div>
+                                      </td>
+                                  </tr>
+                                  @endforeach
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="card-title">Update Barang</h3>
-                                    <div class="card-body">
-                                        @if (count($errors) > 0)
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @endif
-                                        <br>
-                                        <form action="/barang" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                            <div class="form-group" margin-top="-5px">
-                                                <label for="tambahbarang" style="font-size:12pt;">Nama Barang</label><br>
-                                                <input type="text" class="form-control" readonly="" name="NamaBarang" id="NamaBarang" value="{{$EditBarang->NamaBarang}}">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <div class="form-group">
-                                                        <label for="tambahbarang" style="font-size:12pt;">Stok</label><br>
-                                                        <input type="number" name="Stok" id="Stok" class="form-control" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-7">
-                                                    <div class="form-group">
-                                                        <input type="hidden" wire:model="barangID">
-                                                        <label for="tambahbarang" style="font-size:12pt;">Harga</label><br>
-                                                        <input type="number" name="Harga" id="Harga" class="form-control" value="{{$EditBarang->Harga}}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="tambahbarang" style="font-size:12pt;">Kadaluarsa</label><br>
-                                                <input type="hidden" name="BarangID" id="BarangID" value="{{$EditBarang->BarangID}}">
-                                                <input type="date" class="form-control" id="Kadaluarsa" name="Kadaluarsa" value="{{$EditBarang->Kadaluarsa}}">
-                                            </div>
-                                            <button style="background-color:#9e7cf4" class="btn" id="btn">Update</button>
-                                        </form>
+                      </div>
+                      <div class="col-sm-4">
+                        --
+                        <div class="card">
+                          <div class="card-header">
+                            <h4>Update Barang</h4>
+                          </div>
+                          <div class="card-body">
+                            <form method="POST" action="/barang" class="needs-validation">
+                                  @csrf
+                                  @method('PUT')
+                                  <div class="row">
+                                    <div class="form-group col-8">
+                                      <label for="NamaBarang">{{ __('Nama Barang') }}</label>
+                                      <input id="NamaBarang" type="text" class="form-control @error('NamaBarang') is-invalid @enderror" readonly name="NamaBarang" value="{{$EditBarang->NamaBarang}}" autofocus>
+                                      <input type="hidden" name="BarangID" value="{{$EditBarang->BarangID}}">
+                                      @error('NamaBarang')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="form-group col-4">
+                                      <label for="Profit">{{ __('Profit (%)') }}</label>
+                                      <input id="Profit" type="number" class="form-control @error('Profit') is-invalid @enderror" name="Profit" value="{{$EditBarang->Profit*100}}" autofocus>
+                                      @error('Profit')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="form-group col-12">
+                                      <label for="Kode">{{ __('Kode Barang') }}</label>
+                                      <input id="Kode" type="number" class="form-control @error('Kode') is-invalid @enderror" readonly min=0 max=9999999999 name="Kode" value="{{$EditBarang->Kode}}" autofocus>
+                                      @error('Kode')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                      {{ __('Save') }}
+                                    </button>
+                                  </div>
+                                </form>
+                          </div>
                         </div>
+                      </div>
                     </div>
-
                 </section>
             </div>
             <footer class="main-footer">
