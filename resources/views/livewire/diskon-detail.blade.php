@@ -67,7 +67,7 @@
                       <li><a class="nav-link" href="/pembelian"><i class="fas fa-cart-arrow-down"></i> <span>Pembelian</span></a></li>
                       <li><a class="nav-link" href="/barang"><i class="fas fa-database"></i> <span>Barang</span></a></li>
                       <li><a class="nav-link" href="/historypenjualan"><i class="fas fa-history"></i> <span>Histori Transaksi</span></a></li>
-                      <li><a class="nav-link" href="/satuan"><i class=""></i> <span>Satuan</span></a></li>
+                      <li><a class="nav-link" href="/satuan"><i class="fas fa-balance-scale"></i> <span>Satuan</span></a></li>
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
