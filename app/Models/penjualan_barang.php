@@ -10,5 +10,7 @@ class penjualan_barang extends Model
     use HasFactory;
     protected $table = 'penjualan_barang';
     protected $PrimaryKey = 'pjbID';
-    protected $fillable = ['PenjualanID', 'BarangID', 'Qty', 'Total'];
+    protected $fillable = [
+        'PenjualanID', 'BarangID', 'SatuanID', 'Qty', 'Harga', 'Total'
+    ];
 }

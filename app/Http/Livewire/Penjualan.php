@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 use App\Models\Mbarang;
 use App\Models\Mpenjualan;
-use App\Models\Mprofit;
+use App\Models\Msatuan;
 use App\Models\penjualan_barang;
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -11,47 +11,40 @@ use Illuminate\Support\Facades\DB;
 
 class Penjualan extends Component
 {
-  public $barangID;
-  public $Qty;
-  public $query;
-
   public function render()
   {
-    // $disc = DB::table('diskon')->join('barang', 'diskon.DiskonID', '=' ,'barang.DiskonID')->select('diskon.*','barang.*')->get();
     $penjualan_barang = DB::table('penjualan_barang')
       ->join('barang', 'penjualan_barang.BarangID', '=', 'barang.barangID')
+      ->join('satuan', 'penjualan_barang.SatuanID', '=', 'satuan.SatuanID')
       ->leftJoin('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
-      ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang','diskon.Diskon')
+      ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang','satuan.Satuan', 'diskon.Diskon')
       ->where('penjualan_barang.PenjualanID', '=', NULL)
       ->get();
-    $barang = DB::table('barang')
-            ->join('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
-            ->select('barang.*', 'diskon.Diskon')
-            ->get();
-    $profit = Mprofit::first();
     $totalpesanan = DB::table('penjualan_barang')
       ->select(DB::raw('SUM(Total) as totalPesanan'))
       ->where('PenjualanID', '=', NULL)
       ->first();
-    return view('livewire.penjualan', compact('penjualan_barang', 'barang', 'totalpesanan','profit'));
+      $satuan = Msatuan::all();
+    return view('livewire.penjualan', compact('penjualan_barang', 'totalpesanan', 'satuan'));
   }
 
   public function saveitempesanan(Request $request){
+    $satuan = Msatuan::select('Jumlah')->where('SatuanID', $request->SatuanID)->first();
     $request->validate([
         'NamaBarang'   => 'required',
-        'Qty'          => 'required'
+        'Qty'          => 'required',
+        'SatuanID'     => 'required'
     ]);
-    $profit = Mprofit::first();
-    $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
+    $databrg = Mbarang::where('BarangID', $request->BarangID)->first(); 
     if($databrg->DiskonID == NULL) {
-      $hargajual = $databrg->Harga + $databrg->Harga*$profit->Profit;
+      $hargajual = $databrg->Harga + $databrg->Harga*$databrg->Profit;
     } else {
       $databrg = DB::table('barang')
               ->join('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
               ->select('barang.*', 'diskon.Diskon')
               ->where('barang.BarangID','=',$request->BarangID)
               ->first();
-              $hargajual = $databrg->Harga + $databrg->Harga*$profit->Profit;
+              $hargajual = $databrg->Harga + $databrg->Harga*$databrg->Profit;
               $hargajual = $hargajual - ($hargajual*$databrg->Diskon);
     }
     $cekbarang = DB::table('penjualan_barang')
@@ -64,6 +57,8 @@ class Penjualan extends Component
       penjualan_barang::create([
         'BarangID' => $request->BarangID,
         'Qty'      => $request->Qty,
+        'SatuanID' => $request->SatuanID,
+        'Harga'    => $databrg->Harga,
         'Total'    => $hargajual* $request->Qty,
       ]);
       return redirect('/penjualan');
@@ -74,7 +69,7 @@ class Penjualan extends Component
       ->where('PenjualanID', NULL)
       ->first();
       Mbarang::where('BarangID', $request->BarangID)
-        ->update(['Stok' => $databrg->Stok - $this->Qty]);
+        ->update(['Stok' => $databrg->Stok - $request->Qty]);
       penjualan_barang::where('BarangID', $request->BarangID)
         ->where('PenjualanID', NULL)
         ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $hargajual)]);
@@ -93,6 +88,7 @@ class Penjualan extends Component
       penjualan_barang::create([
         'BarangID' => $this->barangID,
         'Qty'      => $this->Qty,
+        'SatuanID' => $this->SatuanID,
         'Total'    => $databrg->Harga * $this->Qty,
       ]);
       Mbarang::where('BarangID', $this->barangID)

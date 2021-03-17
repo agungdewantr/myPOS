@@ -17,9 +17,10 @@
             <tr>
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
-              <th scope="col">Harga</th>
               <th scope="col">Qty</th>
-              <th scope="col">Disc %</th>
+              <th scope="col">Satuan</th>
+              <th scope="col">Harga</th>
+              <th scope="col">Diskon</th>
               <th scope="col">Total</th>
               <th scope="col">Aksi</th>
             </tr>
@@ -29,13 +30,14 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td>{{$pj->NamaBarang}}</td>
-              <td>{{$pj->Harga+$pj->Harga*$profit->Profit}}</td>
               <td>{{$pj->Qty}}</td>
+              <td>{{$pj->Satuan}}</td>
+              <td>{{$pj->Harga}}</td>
               <td>
                 @if($pj->Diskon == null)
                 -
                 @else
-                {{$pj->Diskon*100}}
+                {{$pj->Diskon*100}}%
                 @endif
               </td>
               <td>{{$pj->Total}}</td>
@@ -71,20 +73,32 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="row">
-                      <div class="input-field col-8">
+                      <div class="input-field col-12">
                         <label for="jenis">Nama Barang</label>
                         <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
+                        <input type="hidden" id="BarangID" name="BarangID">
                         @error('jenis')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
-                      <div class="input-field col-4">
-                        <label for="jenis">Qty</label>
-                        <input type="number" id="Qty" name="Qty" value="{{old('Qty')}}" class="form-control @error('Qty') is-invalid @enderror" autocomplete="off">
-                        <input type="hidden" name="BarangID" value="" id="BarangID">
-                        @error('jenis')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+                    </div>
+                    <div class="row">
+                      <div class="input-field col-12">
+                        <label for="Qty">Qty</label>
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
+                          <div class="input-group-prepend">
+                              <select class="form-control @error('Satuan') is-invalid @enderror" name="SatuanID" id="SatuanID">
+                                <option>--Pilih Satuan--</option>
+                                @foreach($satuan as $s)
+                                <option value="{{$s->SatuanID}}">{{$s->Satuan}}</option>
+                                @endforeach
+                              </select>
+                              @error('Qty')
+                                <div class="invalid-feedback">{{$message}}</div>
+                              @enderror
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
@@ -118,7 +132,7 @@
           <div class="col-lg-12 text-right">
             <div class="invoice-detail-item">
               <div class="invoice-detail-name">Total Pembelian</div>
-              <div class="invoice-detail-value" id="total"><h3>Rp.{{ number_format($totalpesanan->totalPesanan,2,',','.') }}</h3></div>
+              <div class="invoice-detail-value" id="total"><h3>Rp.{{ number_format($totalpesanan->totalPesanan,0,',','.') }}</h3></div>
               <input type="hidden" readonly="" id="totalHidden" name="totalHidden" value="{{$totalpesanan->totalPesanan}}"  style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;" >
             </div>
             <div class="invoice-detail-item">

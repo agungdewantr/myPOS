@@ -30,7 +30,7 @@
               <td>
                 <div class="row">
                   <div class="col">
-                    <form action="" method="POST">
+                    <form action="/satuan/{{$s->SatuanID}}/hapus" method="POST">
                       @csrf
                       @method('DELETE')
                       <button class="button1" type="submit" style="border: none; background-color:rgba(255, 0, 0, 0);"><i class="fas fa-trash-alt" style="color: red;"></i></button>

@@ -30,7 +30,7 @@
               <td>{{$loop->iteration}}</td>
               <td>{{$pb->NamaBarang}}</td>
               <td>{{$pb->Qty}}</td>
-              <td>{{$pb->SatuanID}}</td>
+              <td>{{$pb->Satuan}}</td>
               <td>{{$pb->Harga}}</td>
               <td>{{$pb->Total}}</td>
               <td>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="row">
                       <div class="input-field col-12">
-                        <label for="Satuan">Qty</label>
+                        <label for="Qty">Qty</label>
                         <div class="input-group mb-3">
                         <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">

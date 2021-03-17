@@ -16,7 +16,8 @@ class Pembelian extends Component
     {
       $pembelian_barang = DB::table('pembelian_barang')
         ->join('barang', 'pembelian_barang.BarangID', '=', 'barang.barangID')
-        ->select('pembelian_barang.*', 'barang.NamaBarang')
+        ->join('satuan', 'pembelian_barang.SatuanID', '=', 'satuan.SatuanID')
+        ->select('pembelian_barang.*', 'barang.NamaBarang', 'satuan.Satuan')
         ->where('pembelian_barang.PembelianID', '=', NULL)
         ->get();
       $totalpesanan = DB::table('pembelian_barang')
@@ -32,7 +33,7 @@ class Pembelian extends Component
         $request->validate([
             'NamaBarang'   => 'required',
             'Qty'          => 'required',
-            'SatuanID'       => 'required',
+            'SatuanID'     => 'required',
             'Harga'        => 'required',
             'Total'        => 'required'
         ]);

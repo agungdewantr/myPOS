@@ -17,7 +17,7 @@ class Satuan extends Component
     public function createsatuan(Request $request){
       $request->validate([
           'Satuan'   => 'required',
-          'Jumlah'          => 'required'
+          'Jumlah'   => 'required'
       ]);
       Msatuan::create([
         'Satuan' => $request->Satuan,
@@ -25,5 +25,11 @@ class Satuan extends Component
       ]);
 
       return redirect('/satuan');
+    }
+
+    public function deletesatuan($id)
+    {
+        Msatuan::where('SatuanID', $id)->delete();
+        return redirect('/satuan')->with(['success' => 'Item dihapus']);
     }
 }

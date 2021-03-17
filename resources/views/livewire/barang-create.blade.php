@@ -8,7 +8,7 @@
             <div class="row">
               <div class="form-group col-8">
                 <label for="NamaBarang">{{ __('Nama Barang') }}</label>
-                <input id="NamaBarang" type="text" class="form-control @error('NamaBarang') is-invalid @enderror" name="NamaBarang" value="{{ old('NamaBarang') }}" autofocus>
+                <input id="NamaBarang" type="text" class="form-control @error('NamaBarang') is-invalid @enderror" name="NamaBarang" value="{{ old('NamaBarang') }}" autofocus autocomplete="off">
                 @error('NamaBarang')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
               </div>
               <div class="form-group col-4">
                 <label for="Profit">{{ __('Profit (%)') }}</label>
-                <input id="Profit" type="number" class="form-control @error('Profit') is-invalid @enderror" name="Profit" value="{{ old('Profit') }}" autofocus>
+                <input id="Profit" type="number" class="form-control @error('Profit') is-invalid @enderror" name="Profit" value="{{ old('Profit') }}" autofocus autofocus autocomplete="off">
                 @error('Profit')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
