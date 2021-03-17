@@ -65,18 +65,11 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="row">
-                      <div class="input-field col-9">
+                      <div class="input-field col-12">
                         <label for="NamaBarang">Nama Barang</label>
                         <input type="text" id="NamaBarang" name="NamaBarang" value="{{old('NamaBarang')}}" class="form-control @error('NamaBarang') is-invalid @enderror" autocomplete="off">
                         <input type="hidden" name="BarangID" id="BarangID" value="">
                         @error('NamaBarang')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                      </div>
-                      <div class="input-field col-3">
-                        <label for="Profit">Profit (%)</label>
-                        <input type="number" id="Profit" name="Profit" value="" readonly class="form-control @error('Profit') is-invalid @enderror" autocomplete="off">
-                        @error('Profit')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                       </div>
