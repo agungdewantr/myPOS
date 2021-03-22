@@ -17,7 +17,7 @@ class Penjualan extends Component
       ->join('barang', 'penjualan_barang.BarangID', '=', 'barang.barangID')
       ->join('satuan', 'penjualan_barang.SatuanID', '=', 'satuan.SatuanID')
       ->leftJoin('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
-      ->select('penjualan_barang.*', 'barang.Harga', 'barang.NamaBarang','satuan.Satuan', 'diskon.Diskon')
+      ->select('penjualan_barang.*', 'barang.NamaBarang','satuan.Satuan', 'diskon.Diskon')
       ->where('penjualan_barang.PenjualanID', '=', NULL)
       ->get();
     $totalpesanan = DB::table('penjualan_barang')
@@ -35,7 +35,7 @@ class Penjualan extends Component
         'Qty'          => 'required',
         'SatuanID'     => 'required'
     ]);
-    $databrg = Mbarang::where('BarangID', $request->BarangID)->first(); 
+    $databrg = Mbarang::where('BarangID', $request->BarangID)->first();
     if($databrg->DiskonID == NULL) {
       $hargajual = $databrg->Harga + $databrg->Harga*$databrg->Profit;
     } else {
@@ -53,26 +53,39 @@ class Penjualan extends Component
       ->get();
     if (count($cekbarang) == 0) {
       Mbarang::where('BarangID', $request->BarangID)
-        ->update(['Stok' => $databrg->Stok - $request->Qty]);
+        ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
       penjualan_barang::create([
         'BarangID' => $request->BarangID,
         'Qty'      => $request->Qty,
         'SatuanID' => $request->SatuanID,
-        'Harga'    => $databrg->Harga,
-        'Total'    => $hargajual* $request->Qty,
+        'Harga'    => (($databrg->Harga + $databrg->Harga*$databrg->Profit)*$satuan->Jumlah),
+        'Total'    => (($request->Qty*$satuan->Jumlah) * $hargajual),
       ]);
       return redirect('/penjualan');
   } else {
     $qtydanTotal = DB::table('penjualan_barang')
-      ->select('Qty', 'Total')
+      ->select('Qty', 'Total','SatuanID')
       ->where('BarangID', $request->BarangID)
       ->where('PenjualanID', NULL)
       ->first();
-      Mbarang::where('BarangID', $request->BarangID)
-        ->update(['Stok' => $databrg->Stok - $request->Qty]);
-      penjualan_barang::where('BarangID', $request->BarangID)
-        ->where('PenjualanID', NULL)
-        ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + ($request->Qty * $hargajual)]);
+      if($qtydanTotal->SatuanID != $request->SatuanID)
+      {
+        Mbarang::where('BarangID', $request->BarangID)
+          ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
+        penjualan_barang::create([
+          'BarangID' => $request->BarangID,
+          'Qty'      => $request->Qty,
+          'SatuanID' => $request->SatuanID,
+          'Harga'    => (($databrg->Harga + $databrg->Harga*$databrg->Profit)*$satuan->Jumlah),
+          'Total'    => (($request->Qty*$satuan->Jumlah) * $hargajual),
+        ]);
+      } else{
+        Mbarang::where('BarangID', $request->BarangID)
+          ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
+        penjualan_barang::where('BarangID', $request->BarangID)
+          ->where('PenjualanID', NULL)
+          ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + (($request->Qty*$satuan->Jumlah) * $hargajual)]);
+      }
       return redirect('/penjualan');
     }
   }
@@ -111,9 +124,10 @@ class Penjualan extends Component
   public function deleteitem($id)
   {
     $getQty = penjualan_barang::where('pjbID', $id)->first();
+    $satuan = Msatuan::select('Jumlah')->where('SatuanID', $getQty->SatuanID)->first();
     $getBrg = Mbarang::where('BarangID', $getQty->BarangID)->first();
     Mbarang::where('BarangID', $getQty->BarangID)
-      ->update(['Stok' => $getBrg->Stok + $getQty->Qty]);
+      ->update(['Stok' => ($getBrg->Stok + ($getQty->Qty*$satuan->Jumlah))]);
     penjualan_barang::where('pjbID', $id)->delete();
     return redirect('/penjualan')->with(['success' => 'Item dihapus']);
   }
