@@ -44,4 +44,5 @@ Route::get('/historypenjualan', App\Http\Livewire\HistoryPenjualan::class)->name
 Route::get('/satuan', App\Http\Livewire\Satuan::class)->name('satuan');
 Route::post('/satuan', [App\Http\Livewire\Satuan::class, 'createsatuan'])->name('createsatuan');
 Route::delete('/satuan/{id}/hapus', [App\Http\Livewire\Satuan::class, 'deletesatuan'])->name('deletesatuan');
+Route::get('/historypenjualan/{id}/detail', [App\Http\Livewire\HistoryPenjualan::class, 'detailhispenj'])->name('detailhispenj');
 });

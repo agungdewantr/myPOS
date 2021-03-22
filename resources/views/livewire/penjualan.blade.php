@@ -126,6 +126,12 @@
               <strong>{{ $message }}</strong>
             </div>
           @endif
+          @if ($message = Session::get('pembayaransukses'))
+            <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>{{ $message }}</strong>
+            </div>
+          @endif
           <form name="calcu" method="POST" action="/penjualan">
           @csrf
           <input type="number" class="form-control" id="rupiah1" placeholder="Masukkan Nominal Pembayaran" name="inppembayaran" value="" autofocus />

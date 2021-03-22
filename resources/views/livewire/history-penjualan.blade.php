@@ -20,7 +20,7 @@
               <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>{{$p->created_at}}</td>
-                  <td>{{$p->TotalPenjualan}}</td>
+                  <td>Rp.{{ number_format($p->TotalPenjualan,0,',','.') }}</td>
                   <td><a href="/historypenjualan/{{$p->PenjualanID}}/detail"><i class="fas fa-info-circle"></i></a></td>
               </tr>
               @endforeach
@@ -28,8 +28,5 @@
         </table>
       </div>
     </div>
-  </div>
-  <div class="col-sm-4">
-        @include('livewire.barang-create')
   </div>
 </div>

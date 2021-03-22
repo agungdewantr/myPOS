@@ -152,7 +152,7 @@ class Penjualan extends Component
         ->first();
       penjualan_barang::where('PenjualanID', NULL)
         ->update(['PenjualanID' => $PenjualanID->id]);
-        return redirect('/penjualan')->with(['pembayaran' => 'Transaksi Tersimpan']);
+        return redirect('/penjualan')->with(['pembayaransukses' => 'Transaksi Berhasil tersimpan']);
     }
   }
 }
