@@ -15,6 +15,7 @@ class CreateSatuanTable extends Migration
     {
         Schema::create('satuan', function (Blueprint $table) {
             $table->id('SatuanID');
+            $table->integer('BarangID');
             $table->string('Satuan');
             $table->integer('Jumlah');
             $table->timestamps();

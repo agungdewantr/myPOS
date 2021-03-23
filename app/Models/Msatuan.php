@@ -11,6 +11,6 @@ class Msatuan extends Model
     protected $table = 'satuan';
     protected $PrimaryKey = 'SatuanID';
     protected $fillable = [
-        'Satuan','Jumlah'
+        'BarangID','Satuan','Jumlah'
     ];
 }
