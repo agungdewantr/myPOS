@@ -29,8 +29,8 @@ function tgl_indo($tanggal){
 		 <div class="card">
 			 <div class="card-body">
 	 <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-		 <a href="/historypenjualan" class="btn btn-primary">History Penjualan</a>
-		 <a href="/historypembelian" class="btn btn-outline-primary">History Pembelian</a>
+		 <a href="/historypenjualan" class="btn btn-outline-primary">History Penjualan</a>
+		 <a href="/historypembelian" class="btn btn-primary">History Pembelian</a>
 	 </div>
  </div>
 </div>
@@ -40,7 +40,7 @@ function tgl_indo($tanggal){
   <div class="col-lg-8 col-md-12 col-12 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4>History Penjualan</h4>
+        <h4>History Pembelian</h4>
       </div>
       <div class="card-body">
         <table class="table table-sm" align="center">
@@ -54,13 +54,13 @@ function tgl_indo($tanggal){
             </tr>
           </thead>
           <tbody>
-              @foreach($penjualan as $p)
+              @foreach($pembelian as $p)
               <tr align="center">
                   <!-- <td>{{$loop->iteration}}</td> -->
-                  <td>{{$p->PenjualanID}}</td>
+                  <td>{{$p->PembelianID}}</td>
                   <td>{{date('d/m/Y H:i:s', strtotime($p->created_at))}}</td>
-                  <td>Rp.{{ number_format($p->TotalPenjualan,0,',','.') }}</td>
-                  <td><a href="/historypenjualan/{{$p->PenjualanID}}/detail"><i class="fas fa-info-circle"></i></a></td>
+                  <td>Rp.{{ number_format($p->TotalPembelian,0,',','.') }}</td>
+                  <td><a href="/historypembelian/{{$p->PembelianID}}/detail"><i class="fas fa-info-circle"></i></a></td>
               </tr>
               @endforeach
           </tbody>

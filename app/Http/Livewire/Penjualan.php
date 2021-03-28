@@ -24,8 +24,12 @@ class Penjualan extends Component
       ->select(DB::raw('SUM(Total) as totalPesanan'))
       ->where('PenjualanID', '=', NULL)
       ->first();
-      $satuan = Msatuan::all();
+      $satuan = null;
     return view('livewire.penjualan', compact('penjualan_barang', 'totalpesanan', 'satuan'));
+  }
+
+  public function satuan($id){
+    echo json_encode(Msatuan::where('BarangID', $id)->get());
   }
 
   public function saveitempesanan(Request $request){
@@ -51,25 +55,9 @@ class Penjualan extends Component
       ->where('BarangID', $request->BarangID)
       ->where('PenjualanID', NULL)
       ->get();
-    if (count($cekbarang) == 0) {
-      Mbarang::where('BarangID', $request->BarangID)
-        ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
-      penjualan_barang::create([
-        'BarangID' => $request->BarangID,
-        'Qty'      => $request->Qty,
-        'SatuanID' => $request->SatuanID,
-        'Harga'    => (($databrg->Harga + $databrg->Harga*$databrg->Profit)*$satuan->Jumlah),
-        'Total'    => (($request->Qty*$satuan->Jumlah) * $hargajual),
-      ]);
-      return redirect('/penjualan');
-  } else {
-    $qtydanTotal = DB::table('penjualan_barang')
-      ->select('Qty', 'Total','SatuanID')
-      ->where('BarangID', $request->BarangID)
-      ->where('PenjualanID', NULL)
-      ->first();
-      if($qtydanTotal->SatuanID != $request->SatuanID)
-      {
+
+    if(($databrg->Stok - $request->Qty*$satuan->Jumlah) >= 0) {
+      if (count($cekbarang) == 0) {
         Mbarang::where('BarangID', $request->BarangID)
           ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
         penjualan_barang::create([
@@ -79,48 +67,38 @@ class Penjualan extends Component
           'Harga'    => (($databrg->Harga + $databrg->Harga*$databrg->Profit)*$satuan->Jumlah),
           'Total'    => (($request->Qty*$satuan->Jumlah) * $hargajual),
         ]);
-      } else{
-        Mbarang::where('BarangID', $request->BarangID)
-          ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
-        penjualan_barang::where('BarangID', $request->BarangID)
-          ->where('PenjualanID', NULL)
-          ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + (($request->Qty*$satuan->Jumlah) * $hargajual)]);
+        return redirect('/penjualan');
+    } else {
+      $qtydanTotal = DB::table('penjualan_barang')
+        ->select('Qty', 'Total','SatuanID')
+        ->where('BarangID', $request->BarangID)
+        ->where('PenjualanID', NULL)
+        ->first();
+        if($qtydanTotal->SatuanID != $request->SatuanID)
+        {
+          Mbarang::where('BarangID', $request->BarangID)
+            ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
+          penjualan_barang::create([
+            'BarangID' => $request->BarangID,
+            'Qty'      => $request->Qty,
+            'SatuanID' => $request->SatuanID,
+            'Harga'    => (($databrg->Harga + $databrg->Harga*$databrg->Profit)*$satuan->Jumlah),
+            'Total'    => (($request->Qty*$satuan->Jumlah) * $hargajual),
+          ]);
+        } else{
+          Mbarang::where('BarangID', $request->BarangID)
+            ->update(['Stok' => $databrg->Stok - $request->Qty*$satuan->Jumlah]);
+          penjualan_barang::where('BarangID', $request->BarangID)
+            ->where('PenjualanID', NULL)
+            ->update(['Qty' => $qtydanTotal->Qty + $request->Qty, 'Total' => $qtydanTotal->Total + (($request->Qty*$satuan->Jumlah) * $hargajual)]);
+        }
+        return redirect('/penjualan');
       }
-      return redirect('/penjualan');
+    } else {
+      return redirect()->route('Penjualan')->with('error', 'Stok tidak mencukupi');
     }
   }
 
-  public function save()
-  {
-    $databrg = Mbarang::where('BarangID', $this->barangID)->first();
-    $cekbarang = DB::table('penjualan_barang')
-      ->where('BarangID', $this->barangID)
-      ->where('PenjualanID', NULL)
-      ->get();
-    if (count($cekbarang) == 0) {
-      penjualan_barang::create([
-        'BarangID' => $this->barangID,
-        'Qty'      => $this->Qty,
-        'SatuanID' => $this->SatuanID,
-        'Total'    => $databrg->Harga * $this->Qty,
-      ]);
-      Mbarang::where('BarangID', $this->barangID)
-        ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
-      return redirect('/penjualan');
-    } else {
-      $qtydanTotal = DB::table('penjualan_barang')
-        ->select('Qty', 'Total')
-        ->where('BarangID', $this->barangID)
-        ->where('PenjualanID', NULL)
-        ->first();
-      Mbarang::where('BarangID', $this->barangID)
-        ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
-      penjualan_barang::where('BarangID', $this->barangID)
-        ->where('PenjualanID', NULL)
-        ->update(['Qty' => $qtydanTotal->Qty + $this->Qty, 'Total' => $qtydanTotal->Total + ($this->Qty * $databrg->Harga)]);
-      return redirect('/penjualan');
-    }
-  }
   public function deleteitem($id)
   {
     $getQty = penjualan_barang::where('pjbID', $id)->first();

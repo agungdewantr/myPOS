@@ -19,8 +19,8 @@
               <th scope="col">Nama Barang</th>
               <th scope="col">Qty</th>
               <th scope="col">Satuan</th>
-              <th scope="col">Harga</th>
-              <th scope="col">Total</th>
+              <th scope="col">Harga Beli</th>
+              <th scope="col">Sub Total</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
@@ -48,6 +48,14 @@
             @endforeach
           </tbody>
         </table>
+        @if(count($pembelian_barang) != 0)
+        <div class="row-12">
+          <form action="/pembelian" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary" name="button"><i class="fas fa-cart-arrow-down"></i> Save Transaksi Pembelian</button>
+          </form>
+        </div>
+        @endif
       </div>
     </div>
   </div>
@@ -81,10 +89,7 @@
                         <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
                             <select class="form-control @error('Satuan') is-invalid @enderror" name="SatuanID" id="SatuanID">
-                              <option>--Pilih Satuan--</option>
-                              @foreach($satuan as $s)
-                              <option value="{{$s->SatuanID}}">{{$s->Satuan}}</option>
-                              @endforeach
+
                             </select>
                             @error('Qty')
                               <div class="invalid-feedback">{{$message}}</div>
@@ -179,5 +184,30 @@ function formatRupiah(angka, prefix) {
   rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
   return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
+</script>
+<script>
+$(document).ready(function(){
+  $('input#Qty').keyup(function(){
+    let id = $("#BarangID").val();
+    $('#SatuanID').empty();
+    $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
+    $.ajax({
+      type: 'GET',
+      url: 'ambilsatuan/' + id,
+      success: function (response) {
+        console.log(response);
+        var response = JSON.parse(response);
+        console.log(response);
+        $('#SatuanID').empty();
+        $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
+        response.forEach(element => {
+          // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
+          console.log(element['Satuan']);
+          $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
+        });
+      }
+    }) ;
+  });
+});
 </script>
 @endsection

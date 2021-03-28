@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex,nofollow">
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Detail Transaksi Penjualan #{{$id}}</title>
+    <title>Detail Transaksi Pembelian #{{$id}}</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -138,14 +138,14 @@
                 <div class="col-6">
                   <table border="0">
                     <tbody>
-                    <tr><td><b>Tgl Transaksi</b></td><td>:</td><td><b>{{date('d/m/Y H:i:s', strtotime($totalpesanan->created_at))}}</b><br></td></tr>
+                    <tr><td><b>Tgl Transaksi</b></td><td>:</td><td><b>{{date('d/m/Y H:i:s', strtotime($total->created_at))}}</b><br></td></tr>
                     </tbody>
                   </table>
                 </div>
                 <div class="col-6">
-                  <div class="text-md-right">
+                  <!-- <div class="text-md-right">
                     <a href="/cetakinvoice/{{$id}}" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="row mt-3">
@@ -158,23 +158,15 @@
                         <th scope="col">Qty</th>
                         <th scope="col">Satuan</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Diskon</th>
                         <th scope="col">Total</th>
                       </tr>
-                      @foreach($detailpenjualan as $dp)
+                      @foreach($detailpembelian as $dp)
                       <tr align="center">
                         <td>{{$loop->iteration}}</td>
                         <td>{{$dp->NamaBarang}}</td>
                         <td>{{$dp->Qty}}</td>
                         <td>{{$dp->Satuan}}</td>
                         <td>{{$dp->Harga}}</td>
-                        <td>
-                          @if($dp->Diskon == null)
-                          -
-                          @else
-                          {{$dp->Diskon*100}}%
-                          @endif
-                        </td>
                         <td>{{$dp->Total}}</td>
                       </tr>
                       @endforeach
@@ -186,16 +178,7 @@
                     <div class="col-lg-4 text-right">
                       <div class="invoice-detail-item">
                         <div class="invoice-detail-name">Total</div>
-                        <div class="invoice-detail-value">Rp.{{ number_format($totalpesanan->TotalPenjualan,0,',','.') }}</div>
-                      </div>
-                      <div class="invoice-detail-item">
-                        <div class="invoice-detail-name">Nominal Pembayaran</div>
-                        <div class="invoice-detail-value">Rp.{{ number_format($totalpesanan->NominalPembayaran,0,',','.') }}</div>
-                      </div>
-                      <hr class="mt-2 mb-2">
-                      <div class="invoice-detail-item">
-                        <div class="invoice-detail-name">Kembalian</div>
-                        <div class="invoice-detail-value invoice-detail-value-lg">Rp.{{ number_format($totalpesanan->NominalPembayaran-$totalpesanan->TotalPenjualan,0,',','.') }}</div>
+                        <div class="invoice-detail-value">Rp.{{ number_format($total->TotalPembelian,0,',','.') }}</div>
                       </div>
                     </div>
                   </div>

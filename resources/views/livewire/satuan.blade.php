@@ -13,7 +13,7 @@
           </div>
         @endif
         <table class="table table-sm">
-          <thead>
+          <thead align="center">
             <tr>
               <th scope="col">No</th>
               <th scope="col">Satuan</th>
@@ -23,7 +23,7 @@
           </thead>
           <tbody>
             @foreach($satuan as $s)
-            <tr>
+            <tr align="center">
               <td>{{$loop->iteration}}</td>
               <td>{{$s->Satuan}}</td>
               <td>{{$s->Jumlah}}</td>

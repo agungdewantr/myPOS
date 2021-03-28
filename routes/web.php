@@ -40,9 +40,13 @@ Route::put('diskon/adddiskontobarang', [App\Http\Livewire\Barang::class, 'adddis
 route::put('diskon/{id}/deletebarangdiskon',  [App\Http\Livewire\Barang::class, 'deletebarangdiskon'])->name('deletebarangdiskon');
 Route::put('diskon/{id}/edit', [App\Http\Livewire\Home::class, 'updatediskon'])->name('updatediskon');
 Route::delete('diskon/{id}/hapus', [App\Http\Livewire\Home::class, 'hapusdiskon'])->name('hapusdiskon');
-Route::get('/historypenjualan', App\Http\Livewire\HistoryPenjualan::class)->name('historypenjualan');
+Route::get('/historypenjualan', App\Http\Livewire\HistoryTransaksi::class)->name('historypenjualan');
+Route::get('/historypembelian', App\Http\Livewire\HistoryPembelian::class)->name('historypembelian');
 Route::get('/satuan', App\Http\Livewire\Satuan::class)->name('satuan');
 Route::post('/satuan', [App\Http\Livewire\Satuan::class, 'createsatuan'])->name('createsatuan');
 Route::delete('/satuan/{id}/hapus', [App\Http\Livewire\Satuan::class, 'deletesatuan'])->name('deletesatuan');
-Route::get('/historypenjualan/{id}/detail', [App\Http\Livewire\HistoryPenjualan::class, 'detailhispenj'])->name('detailhispenj');
+Route::get('/historypenjualan/{id}/detail', [App\Http\Livewire\HistoryTransaksi::class, 'detailhispenj'])->name('detailhispenj');
+Route::get('/historypembelian/{id}/detail', [App\Http\Livewire\HistoryPembelian::class, 'detailhispemb'])->name('detailhispemb');
+Route::get('/ambilsatuan/{id}', [App\Http\Livewire\Penjualan::class, 'satuan'])->name('ambilsatuan');
+Route::get('/cetakinvoice/{id}', [App\Http\Livewire\HistoryTransaksi::class, 'cetakinvoice'])->name('cetakinvoice');
 });

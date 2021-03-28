@@ -144,7 +144,6 @@
                 </div>
                 <div class="col-6">
                   <div class="text-md-right">
-                    <a href="/cetakinvoice/{{$id}}" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</a>
                   </div>
                 </div>
               </div>
@@ -246,6 +245,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     @yield('script')
     @livewireScripts
+    <script type="text/javascript">
+      window.print();
+    </script>
 </body>
 
 </html>

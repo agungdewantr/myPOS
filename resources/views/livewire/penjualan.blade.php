@@ -65,6 +65,17 @@
           <h4>Tambah Transaksi</h4>
         </div>
         <div class="card-body">
+          @if ($message = Session::get('error'))
+          <button id="tombolku" style="display:none;" class="but">Open Modal</button>
+           <div id="myModal" class="penghalang">
+               <div class="modal-content">
+                   <span id="tutup">&times;</span>
+                  <h4 class="text-center text-danger">Error !</h4>
+                   <p class="text-center">{{$message}}</p>
+                   <a href="" class="badge badge-danger">Kembali</a>
+               </div>
+           </div>
+          @endif
           <div class="row">
           <form action="/penjualan/keranjang" method="post">
             @csrf
@@ -88,11 +99,8 @@
                         <div class="input-group mb-3">
                           <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
                           <div class="input-group-prepend">
-                              <select class="form-control @error('Satuan') is-invalid @enderror" name="SatuanID" id="SatuanID">
-                                <option>--Pilih Satuan--</option>
-                                @foreach($satuan as $s)
-                                <option value="{{$s->SatuanID}}">{{$s->Satuan}}</option>
-                                @endforeach
+                              <select class="form-control @error('Satuan') is-invalid @enderror" placeholder="pilih satuan" name="SatuanID" id="SatuanID">
+
                               </select>
                               @error('Qty')
                                 <div class="invalid-feedback">{{$message}}</div>
@@ -151,13 +159,14 @@
               <div class="invoice-detail-value invoice-detail-value-lg"><h3 id="kembalian"></h3></div>
                 <input type="hidden" readonly=""  id="inpkembalian" name="inpkembalian" value="">
             </div>
-            <button type="submit" class="btn btn-primary" name="button">Save</button>
+            <button type="submit" class="btn btn-primary" name="button" id="save">Save</button>
           </div>
           </form>
         </div>
     </div>
   </div>
 </div>
+
 
 @section('script')
 <script type="text/javascript">
@@ -224,4 +233,40 @@ function formatRupiah(angka, prefix) {
 }
 
 </script>
+<script>
+$(document).ready(function(){
+  $('input#Qty').keyup(function(){
+    let id = $("#BarangID").val();
+    $('#SatuanID').empty();
+    $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
+    $.ajax({
+      type: 'GET',
+      url: 'ambilsatuan/' + id,
+      success: function (response) {
+        console.log(response);
+        var response = JSON.parse(response);
+        console.log(response);
+        $('#SatuanID').empty();
+        $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
+        response.forEach(element => {
+          // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
+          console.log(element['Satuan']);
+          $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
+        });
+      }
+    }) ;
+  });
+});
+</script>
+<!-- <script>
+$(document).ready(function(){
+  $('input#rupiah1').keyup(function(){
+    let bayar = parseInt($("rupiah1").val());
+    let total = parseInt($("#totalHidden").val());
+    if(bayar < total) {
+      $('button#save').attr("disabled", true);
+    }
+  });
+});
+</script> -->
 @endsection

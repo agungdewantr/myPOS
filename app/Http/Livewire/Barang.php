@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 use App\Models\Mbarang;
+use App\Models\Msatuan;
 use App\Models\diskon;
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -33,17 +34,29 @@ class Barang extends Component
 
     public function CreateBarang(Request $request)
     {
-        $request->validate([
-            'NamaBarang'    => 'required',
-            'Profit'        => 'required',
-            'Kode'          => 'required'
-        ]);
-        Mbarang::create([
-            'NamaBarang'     => $request->NamaBarang,
-            'Profit'        => $request->Profit /100,
-            'Kode'          => $request->Kode
+      $request->validate([
+          'NamaBarang'    => 'required',
+          'Profit'        => 'required',
+          'Kode'          => 'required'
+      ]);
+      Mbarang::create([
+          'NamaBarang'     => $request->NamaBarang,
+          'Profit'        => $request->Profit /100,
+          'Kode'          => $request->Kode
+
+      ]);
+      $BarangID = DB::table('barang')
+        ->select(DB::raw('MAX(BarangID) as id'))
+        ->first();
+      foreach($request->Satuan as  $key=>$value)
+      {
+        Msatuan::create([
+            'Satuan'     => $request->Satuan[$key],
+            'Jumlah'        => $request->Jumlah[$key],
+            'BarangID'          => $BarangID->id
 
         ]);
+      }
         return redirect('/barang');
     }
 

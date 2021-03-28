@@ -13,14 +13,14 @@
   <div class="col-lg-4 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
       <div class="col-3 card-icon bg-primary">
-        <i class="fas fa-chart-line"></i>
+        <i class="fas fa-list"></i>
       </div>
       <div class="card-wrap">
         <div class="card-header mr-auto">
-          <h4>Profit yang diterapkan</h4>
+          <h4>Banyak Jenis Barang</h4>
         </div>
         <div class="card-body">
-      4444
+      {{$banyakbarang}}
       </div>
       </div>
     </div>
@@ -28,14 +28,14 @@
   <div class="col-lg-4 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
       <div class="col-3 card-icon bg-primary">
-        <i class="far fa-user"></i>
+        <i class="fas fa-money-bill-wave-alt"></i>
       </div>
       <div class="card-wrap">
         <div class="card-header mr-auto">
           <h4>Penjualan Bulan ini</h4>
         </div>
         <div class="card-body">
-          Rp. 0000
+          Rp.{{ number_format($totalpenjualan,0,',','.') }}
         </div>
       </div>
     </div>
@@ -43,14 +43,14 @@
   <div class="col-lg-4 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
       <div class="col-3 card-icon bg-primary">
-        <i class="far fa-user"></i>
+        <i class="fas fa-cart-arrow-down"></i>
       </div>
       <div class="card-wrap">
         <div class="card-header mr-auto">
           <h4>Pembelian bulan ini</h4>
         </div>
         <div class="card-body">
-          Rp. 0000
+          Rp.{{ number_format($totalpembelian,0,',','.') }}
         </div>
       </div>
     </div>

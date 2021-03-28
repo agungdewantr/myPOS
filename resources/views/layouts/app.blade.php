@@ -179,6 +179,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-3-4-1.js"></script>
     <script src="{!! asset('assets1/js/stisla.js') !!}"></script>
 
     <!-- JS Libraies -->
@@ -195,7 +196,7 @@
 
     <!-- Page Specific JS File -->
     <script src="{!! asset('assets1/js/page/index-0.js') !!}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
 $('#myModal').modal('show');
@@ -203,10 +204,10 @@ $('#myModal').modal('show');
 <script>
 $('#myModal1').modal1('show');
 </script>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function() {
       $('.but').trigger('click');
-  }) -->
+  })
 </script>
     @yield('script')
     @livewireScripts

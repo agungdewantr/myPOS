@@ -2,15 +2,33 @@
 
 namespace App\Http\Livewire;
 use App\Models\diskon;
+use App\Models\Mpenjualan;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use DB;
 
 class Home extends Component
 {
     public function render()
     {
         $diskon = diskon::all();
-        return view('livewire.home', compact('diskon'));
+        $totalpenjualan = DB::table('penjualan')
+                            ->select(DB::raw('SUM(TotalPenjualan) as totalpenjualan'))
+                            ->whereMonth('created_at', date("m"))
+                            ->whereYear('created_at', date("Y"))
+                            ->first();
+        $totalpenjualan = $totalpenjualan->totalpenjualan;
+        $totalpembelian = DB::table('pembelian')
+                            ->select(DB::raw('SUM(TotalPembelian) as totalpembelian'))
+                            ->whereMonth('created_at', date("m"))
+                            ->whereYear('created_at', date("Y"))
+                            ->first();
+        $totalpembelian = $totalpembelian->totalpembelian;
+        $banyakbarang = DB::table('barang')
+                          ->select(DB::raw('COUNT(NamaBarang) as barang'))
+                          ->first();
+        $banyakbarang = $banyakbarang->barang;
+        return view('livewire.home', compact('diskon','totalpenjualan','totalpembelian','banyakbarang'));
     }
 
     public function savediskon(Request $request)

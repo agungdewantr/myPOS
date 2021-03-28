@@ -13,27 +13,29 @@
           </div>
         @endif
         <table class="table table-sm" align="center">
-          <thead>
+          <thead align="center">
             <tr>
               <th scope="col">No</th>
               <th scope="col">Nama Barang</th>
               <th scope="col">Stok</th>
-              <th scope="col">Harga (Pcs)</th>
+              <th scope="col">Harga Jual (Pcs)</th>
+              <th scope="col">Harga Beli (Pcs)</th>
               <th scope="col">Barcode</th>
               <th scope="col">Profit</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody align="center">
               @foreach($barang as $B)
-              <tr>
+              <tr >
                   <td>{{$loop->iteration}}</td>
                   <td>{{$B->NamaBarang}}</td>
                   <td>{{$B->Stok}}</td>
-                  <td>Rp{{$B->Harga}}</td>
+                  <td>Rp {{number_format($B->Harga,0,',','.')}}</td>
+                  <td>Rp {{ number_format($B->Harga+$B->Harga*$B->Profit,0,',','.')}}</td>
                   <td>{!! \DNS1D::getBarcodeHTML($B->Kode, "I25+") !!}{{$B->Kode}}</td>
                   <td>{{$B->Profit*100}} %</td>
-                  <td>
+                  <td >
                       <div class="row">
                           <div class="col">
                               <form action="/barang/{{$B->BarangID}}/delete" method="POST">

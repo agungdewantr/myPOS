@@ -68,37 +68,6 @@ class Pembelian extends Component
         }
       }
 
-      public function save()
-      {
-        $databrg = Mbarang::where('BarangID', $this->barangID)->first();
-        $cekbarang = DB::table('pembelian_barang')
-          ->where('BarangID', $this->barangID)
-          ->where('PembelianID', NULL)
-          ->get();
-        if (count($cekbarang) == 0) {
-          pembelian_barang::create([
-            'BarangID' => $this->barangID,
-            'Qty'      => $this->Qty,
-            'Total'    => $databrg->Harga * $this->Qty,
-          ]);
-          Mbarang::where('BarangID', $this->barangID)
-            ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
-          return redirect('/pembelian');
-        } else {
-          $qtydanTotal = DB::table('pembelian_barang')
-            ->select('Qty', 'Total')
-            ->where('BarangID', $this->barangID)
-            ->where('PembelianID', NULL)
-            ->first();
-          Mbarang::where('BarangID', $this->barangID)
-            ->update(['Stok' => $databrg->Jumlah - $this->Qty]);
-          pembelian_barang::where('BarangID', $this->barangID)
-            ->where('PembelianID', NULL)
-            ->update(['Qty' => $qtydanTotal->Qty + $this->Qty, 'Total' => $qtydanTotal->Total + ($this->Qty * $databrg->Harga)]);
-          return redirect('/pembelian');
-        }
-      }
-
     public function deleteitem($id)
     {
         pembelian_barang::where('pbbID', $id)->delete();
@@ -107,11 +76,18 @@ class Pembelian extends Component
 
     public function savetransaksi(Request $request)
     {
+      $totalpembelian = DB::table('pembelian_barang')
+        ->select(DB::raw('SUM(Total) as totalpembelian'))
+        ->where('PembelianID', '=', NULL)
+        ->first();
+      Mpembelian::create([
+        'TotalPembelian'    => $totalpembelian->totalpembelian
+      ]);
       $PembelianID = DB::table('pembelian')
         ->select(DB::raw('MAX(PembelianID) as id'))
         ->first();
       pembelian_barang::where('PembelianID', NULL)
         ->update(['PembelianID' => $PembelianID->id]);
-      return redirect('/pembelian');
+      return redirect('/pembelian')->with(['success' => 'Transaksi Pembelian Tersimpan']);
     }
 }
