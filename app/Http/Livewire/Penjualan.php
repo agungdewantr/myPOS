@@ -112,7 +112,7 @@ class Penjualan extends Component
 
   public function caribarang()
   {
-    $barang = Mbarang::all();
+    $barang = Mbarang::where('Stok', '>', 0)->get();
     return response()->json($barang);
   }
 
