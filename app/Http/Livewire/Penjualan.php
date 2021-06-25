@@ -16,9 +16,8 @@ class Penjualan extends Component
   {
     $penjualan_barang = DB::table('penjualan_barang')
       ->join('barang', 'penjualan_barang.BarangID', '=', 'barang.barangID')
-      ->join('satuan', 'penjualan_barang.SatuanID', '=', 'satuan.SatuanID')
       ->leftJoin('diskon', 'barang.DiskonID', '=', 'diskon.DiskonID')
-      ->select('penjualan_barang.*', 'barang.NamaBarang', 'satuan.Satuan', 'diskon.Diskon')
+      ->select('penjualan_barang.*', 'barang.NamaBarang', 'diskon.Diskon')
       ->where('penjualan_barang.PenjualanID', '=', NULL)
       ->get();
     $totalpesanan = DB::table('penjualan_barang')
@@ -36,7 +35,7 @@ class Penjualan extends Component
 
   public function saveitempesanan(Request $request)
   {
-    $satuan = Msatuan::select('Jumlah')->where('SatuanID', $request->SatuanID)->first();
+    $satuan = Msatuan::select('Jumlah')->where('Satuan', $request->SatuanID)->first();
     $request->validate([
       'NamaBarang'   => 'required',
       'Qty'          => 'required',
@@ -66,24 +65,24 @@ class Penjualan extends Component
         penjualan_barang::create([
           'BarangID' => $request->BarangID,
           'Qty'      => $request->Qty,
-          'SatuanID' => $request->SatuanID,
+          'Satuan' => $request->SatuanID,
           'Harga'    => (($databrg->Harga + $databrg->Harga * $databrg->Profit) * $satuan->Jumlah),
           'Total'    => (($request->Qty * $satuan->Jumlah) * $hargajual),
         ]);
         return redirect('/penjualan');
       } else {
         $qtydanTotal = DB::table('penjualan_barang')
-          ->select('Qty', 'Total', 'SatuanID')
+          ->select('Qty', 'Total', 'Satuan')
           ->where('BarangID', $request->BarangID)
           ->where('PenjualanID', NULL)
           ->first();
-        if ($qtydanTotal->SatuanID != $request->SatuanID) {
+        if ($qtydanTotal->Satuan != $request->SatuanID) {
           Mbarang::where('BarangID', $request->BarangID)
             ->update(['Stok' => $databrg->Stok - $request->Qty * $satuan->Jumlah]);
           penjualan_barang::create([
             'BarangID' => $request->BarangID,
             'Qty'      => $request->Qty,
-            'SatuanID' => $request->SatuanID,
+            'Satuan' => $request->SatuanID,
             'Harga'    => (($databrg->Harga + $databrg->Harga * $databrg->Profit) * $satuan->Jumlah),
             'Total'    => (($request->Qty * $satuan->Jumlah) * $hargajual),
           ]);

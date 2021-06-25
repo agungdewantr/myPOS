@@ -11,6 +11,6 @@ class penjualan_barang extends Model
     protected $table = 'penjualan_barang';
     protected $PrimaryKey = 'pjbID';
     protected $fillable = [
-        'PenjualanID', 'BarangID', 'SatuanID', 'Qty', 'Harga', 'Total'
+        'PenjualanID', 'BarangID', 'Satuan', 'Qty', 'Harga', 'Total'
     ];
 }

@@ -17,8 +17,7 @@ class Pembelian extends Component
   {
     $pembelian_barang = DB::table('pembelian_barang')
       ->join('barang', 'pembelian_barang.BarangID', '=', 'barang.barangID')
-      ->join('satuan', 'pembelian_barang.SatuanID', '=', 'satuan.SatuanID')
-      ->select('pembelian_barang.*', 'barang.NamaBarang', 'satuan.Satuan')
+      ->select('pembelian_barang.*', 'barang.NamaBarang')
       ->where('pembelian_barang.PembelianID', '=', NULL)
       ->get();
     $totalpesanan = DB::table('pembelian_barang')
@@ -31,7 +30,7 @@ class Pembelian extends Component
 
   public function saveitembeli(Request $request)
   {
-    $satuan = Msatuan::select('Jumlah')->where('SatuanID', $request->SatuanID)->first();
+    $satuan = Msatuan::select('Jumlah')->where('Satuan', $request->SatuanID)->first();
     $request->validate([
       'NamaBarang'   => 'required',
       'Qty'          => 'required',
@@ -49,7 +48,7 @@ class Pembelian extends Component
         ->update(['Stok' => $databrg->Stok + $request->Qty * $satuan->Jumlah, 'Harga' => $request->Harga / $satuan->Jumlah]);
       pembelian_barang::create([
         'BarangID' => $request->BarangID,
-        'SatuanID' => $request->SatuanID,
+        'Satuan' => $request->SatuanID,
         'Harga'    => $request->Harga,
         'Qty'      => $request->Qty,
         'Total'    => $request->Total,

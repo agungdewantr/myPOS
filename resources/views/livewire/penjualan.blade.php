@@ -256,7 +256,7 @@
           response.forEach(element => {
             // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
             console.log(element['Satuan']);
-            $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
+            $('#SatuanID').append(`<option value="${element['Satuan']}">${element['Satuan']}</option>`);
           });
         }
       });

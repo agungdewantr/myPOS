@@ -17,7 +17,7 @@ class CreatePenjualanBarangTable extends Migration
             $table->id('pjbID');
             $table->integer('PenjualanID')->nullable();
             $table->integer('BarangID');
-            $table->integer('SatuanID');
+            $table->string('Satuan');
             $table->integer('Qty');
             $table->integer('Harga');
             $table->integer('Total');
