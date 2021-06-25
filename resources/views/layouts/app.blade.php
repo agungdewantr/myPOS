@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <!-- <html lang="en"> -->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="robots" content="noindex,nofollow">
-<!-- CSRF Token -->
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>myPOS</title>
 
     <!-- General CSS Files -->
@@ -26,7 +27,7 @@
 </head>
 
 <body>
-  @yield('content')
+    @yield('content')
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
@@ -48,14 +49,16 @@
                             <div class="d-sm-none d-lg-inline-block">{{Auth::user()->name}}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a href="/profile" class="dropdown-item has-icon">
-                            <i class="far fa-user"></i> Profile
-                          </a>
-                          <div class="dropdown-divider"></div>
-                          <form action="{{route('logout')}}" method="post">
-                            @csrf
-                            <button type="submit" class="dropdown-item has-icon text-danger" style="outline:none;"><i class="fas fa-sign-out-alt"></i><h6 class="small">Logout</h6></button>
-                          </form>
+                            <a href="/profile" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item has-icon text-danger" style="outline:none;"><i class="fas fa-sign-out-alt"></i>
+                                    <h6 class="small">Logout</h6>
+                                </button>
+                            </form>
                         </div>
                     </li>
                 </ul>
@@ -74,7 +77,6 @@
                         <li><a class="nav-link" href="/pembelian"><i class="fas fa-cart-arrow-down"></i> <span>Pembelian</span></a></li>
                         <li><a class="nav-link" href="/barang"><i class="fas fa-database"></i> <span>Barang</span></a></li>
                         <li><a class="nav-link" href="/historypenjualan"><i class="fas fa-history"></i> <span>Histori Transaksi</span></a></li>
-                        <li><a class="nav-link" href="/satuan"><i class="fas fa-balance-scale"></i> <span>Satuan</span></a></li>
                     </ul>
 
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -195,16 +197,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-$('#myModal').modal('show');
-</script>
-<script>
-$('#myModal1').modal1('show');
-</script>
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('.but').trigger('click');
-  })
-</script>
+        $('#myModal').modal('show');
+    </script>
+    <script>
+        $('#myModal1').modal1('show');
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.but').trigger('click');
+        })
+    </script>
     @yield('script')
     @livewireScripts
 </body>

@@ -7,10 +7,10 @@
       </div>
       <div class="card-body">
         @if ($message = Session::get('success'))
-          <div class="alert alert-warning">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-          </div>
+        <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>{{ $message }}</strong>
+        </div>
         @endif
         <table class="table table-sm">
           <thead>
@@ -86,18 +86,18 @@
                       <div class="input-field col-12">
                         <label for="Qty">Qty</label>
                         <div class="input-group mb-3">
-                        <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend">
+                          <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
+                          <div class="input-group-prepend">
                             <select class="form-control @error('Satuan') is-invalid @enderror" name="SatuanID" id="SatuanID">
 
                             </select>
                             @error('Qty')
-                              <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                     <div class="row">
                       <div class="input-field col-6">
                         <label for="Harga">Harga</label>
@@ -130,7 +130,7 @@
   $(document).ready(function() {
     $.ajax({
       type: 'get',
-      url: '{!!URL::to('caribarang')!!}',
+      url: '{!!URL::to('caribarangbeli')!!}',
       success: function(response) {
         console.log(response);
         //material css
@@ -151,8 +151,8 @@
           onAutocomplete: function(reqdata) {
             console.log(reqdata);
             $('#BarangID').val(dataharga2[reqdata]['BarangID']);
-            $('#Profit').val(dataharga2[reqdata]['Profit']*100);
-        }
+            $('#Profit').val(dataharga2[reqdata]['Profit'] * 100);
+          }
         });
         //end
       }
@@ -167,47 +167,47 @@
     });
   });
 
-/* Fungsi formatRupiah */
-function formatRupiah(angka, prefix) {
-  var number_string = angka.replace(/[^,\d]/g, "").toString(),
-    split = number_string.split(","),
-    sisa = split[0].length % 3,
-    rupiah = split[0].substr(0, sisa),
-    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+  /* Fungsi formatRupiah */
+  function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+      split = number_string.split(","),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-  // tambahkan titik jika yang di input sudah menjadi angka ribuan
-  if (ribuan) {
-    separator = sisa ? "." : "";
-    rupiah += separator + ribuan.join(".");
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+      separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
   }
-
-  rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-  return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
-}
 </script>
 <script>
-$(document).ready(function(){
-  $('input#Qty').keyup(function(){
-    let id = $("#BarangID").val();
-    $('#SatuanID').empty();
-    $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
-    $.ajax({
-      type: 'GET',
-      url: 'ambilsatuan/' + id,
-      success: function (response) {
-        console.log(response);
-        var response = JSON.parse(response);
-        console.log(response);
-        $('#SatuanID').empty();
-        $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
-        response.forEach(element => {
-          // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
-          console.log(element['Satuan']);
-          $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
-        });
-      }
-    }) ;
+  $(document).ready(function() {
+    $('input#Qty').keyup(function() {
+      let id = $("#BarangID").val();
+      $('#SatuanID').empty();
+      $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
+      $.ajax({
+        type: 'GET',
+        url: 'ambilsatuan/' + id,
+        success: function(response) {
+          console.log(response);
+          var response = JSON.parse(response);
+          console.log(response);
+          $('#SatuanID').empty();
+          $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
+          response.forEach(element => {
+            // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
+            console.log(element['Satuan']);
+            $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
+          });
+        }
+      });
+    });
   });
-});
 </script>
 @endsection

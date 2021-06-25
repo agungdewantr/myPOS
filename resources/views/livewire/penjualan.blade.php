@@ -7,10 +7,10 @@
       </div>
       <div class="card-body">
         @if ($message = Session::get('success'))
-          <div class="alert alert-warning">
+        <div class="alert alert-warning">
           <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-          </div>
+          <strong>{{ $message }}</strong>
+        </div>
         @endif
         <table class="table table-sm">
           <thead>
@@ -59,24 +59,24 @@
       </div>
     </div>
   </div>
-    <div class="col-lg-5 col-md-12 col-12 col-sm-12">
-      <div class="card">
-        <div class="card-header">
-          <h4>Tambah Transaksi</h4>
+  <div class="col-lg-5 col-md-12 col-12 col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h4>Tambah Transaksi</h4>
+      </div>
+      <div class="card-body">
+        @if ($message = Session::get('error'))
+        <button id="tombolku" style="display:none;" class="but">Open Modal</button>
+        <div id="myModal" class="penghalang">
+          <div class="modal-content">
+            <span id="tutup">&times;</span>
+            <h4 class="text-center text-danger">Error !</h4>
+            <p class="text-center">{{$message}}</p>
+            <a href="" class="badge badge-danger">Kembali</a>
+          </div>
         </div>
-        <div class="card-body">
-          @if ($message = Session::get('error'))
-          <button id="tombolku" style="display:none;" class="but">Open Modal</button>
-           <div id="myModal" class="penghalang">
-               <div class="modal-content">
-                   <span id="tutup">&times;</span>
-                  <h4 class="text-center text-danger">Error !</h4>
-                   <p class="text-center">{{$message}}</p>
-                   <a href="" class="badge badge-danger">Kembali</a>
-               </div>
-           </div>
-          @endif
-          <div class="row">
+        @endif
+        <div class="row">
           <form action="/penjualan/keranjang" method="post">
             @csrf
             <div class="form-row">
@@ -99,12 +99,12 @@
                         <div class="input-group mb-3">
                           <input type="number" class="form-control @error('Qty') is-invalid @enderror" id="Qty" name="Qty" aria-describedby="basic-addon1">
                           <div class="input-group-prepend">
-                              <select class="form-control @error('Satuan') is-invalid @enderror" placeholder="pilih satuan" name="SatuanID" id="SatuanID">
+                            <select class="form-control @error('Satuan') is-invalid @enderror" placeholder="pilih satuan" name="SatuanID" id="SatuanID">
 
-                              </select>
-                              @error('Qty')
-                                <div class="invalid-feedback">{{$message}}</div>
-                              @enderror
+                            </select>
+                            @error('Qty')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                           </div>
                         </div>
                       </div>
@@ -127,42 +127,48 @@
       <div class="card-header">
         <h4>Proses Pembayaran</h4>
       </div>
-        <div class="card-body">
-          @if ($message = Session::get('pembayaran'))
-            <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>{{ $message }}</strong>
-            </div>
-          @endif
-          @if ($message = Session::get('pembayaransukses'))
-            <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>{{ $message }}</strong>
-            </div>
-          @endif
-          <form name="calcu" method="POST" action="/penjualan">
+      <div class="card-body">
+        @if ($message = Session::get('pembayaran'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>{{ $message }}</strong>
+        </div>
+        @endif
+        @if ($message = Session::get('pembayaransukses'))
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <strong>{{ $message }}</strong>
+        </div>
+        @endif
+        <form name="calcu" method="POST" action="/penjualan">
           @csrf
           <input type="number" class="form-control" id="rupiah1" placeholder="Masukkan Nominal Pembayaran" name="inppembayaran" value="" autofocus />
           <div class="col-lg-12 text-right">
             <div class="invoice-detail-item">
               <div class="invoice-detail-name">Total Pembelian</div>
-              <div class="invoice-detail-value" id="total"><h3>Rp.{{ number_format($totalpesanan->totalPesanan,0,',','.') }}</h3></div>
-              <input type="hidden" readonly="" id="totalHidden" name="totalHidden" value="{{$totalpesanan->totalPesanan}}"  style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;" >
+              <div class="invoice-detail-value" id="total">
+                <h3>Rp.{{ number_format($totalpesanan->totalPesanan,0,',','.') }}</h3>
+              </div>
+              <input type="hidden" readonly="" id="totalHidden" name="totalHidden" value="{{$totalpesanan->totalPesanan}}" style="font-size:20px; border:none; text-align: right;font-style:bold;width:205px;">
             </div>
             <div class="invoice-detail-item">
               <div class="invoice-detail-name">Nominal Pembayaran </div>
-              <div class="invoice-detail-value" ><h3 id="rupiahh"></h3></div>
+              <div class="invoice-detail-value">
+                <h3 id="rupiahh"></h3>
+              </div>
             </div>
             <hr class="mt-2 mb-2">
             <div class="invoice-detail-item">
               <div class="invoice-detail-name">Kembalian</div>
-              <div class="invoice-detail-value invoice-detail-value-lg"><h3 id="kembalian"></h3></div>
-                <input type="hidden" readonly=""  id="inpkembalian" name="inpkembalian" value="">
+              <div class="invoice-detail-value invoice-detail-value-lg">
+                <h3 id="kembalian"></h3>
+              </div>
+              <input type="hidden" readonly="" id="inpkembalian" name="inpkembalian" value="">
             </div>
             <button type="submit" class="btn btn-primary" name="button" id="save">Save</button>
           </div>
-          </form>
-        </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -173,7 +179,7 @@
   $(document).ready(function() {
     $.ajax({
       type: 'get',
-      url: '{!!URL::to('caribarang')!!}',
+      url: '{!!URL::to('caribarangjual')!!}',
       success: function(response) {
         console.log(response);
         //material css
@@ -212,51 +218,50 @@
     });
   });
 
-// var rupiah = document.getElementById("rupiahh").innerHTML;
+  // var rupiah = document.getElementById("rupiahh").innerHTML;
 
-/* Fungsi formatRupiah */
-function formatRupiah(angka, prefix) {
-  var number_string = angka.replace(/[^,\d]/g, "").toString(),
-    split = number_string.split(","),
-    sisa = split[0].length % 3,
-    rupiah = split[0].substr(0, sisa),
-    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+  /* Fungsi formatRupiah */
+  function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+      split = number_string.split(","),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-  // tambahkan titik jika yang di input sudah menjadi angka ribuan
-  if (ribuan) {
-    separator = sisa ? "." : "";
-    rupiah += separator + ribuan.join(".");
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if (ribuan) {
+      separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
   }
-
-  rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-  return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
-}
-
 </script>
 <script>
-$(document).ready(function(){
-  $('input#Qty').keyup(function(){
-    let id = $("#BarangID").val();
-    $('#SatuanID').empty();
-    $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
-    $.ajax({
-      type: 'GET',
-      url: 'ambilsatuan/' + id,
-      success: function (response) {
-        console.log(response);
-        var response = JSON.parse(response);
-        console.log(response);
-        $('#SatuanID').empty();
-        $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
-        response.forEach(element => {
-          // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
-          console.log(element['Satuan']);
-          $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
-        });
-      }
-    }) ;
+  $(document).ready(function() {
+    $('input#Qty').keyup(function() {
+      let id = $("#BarangID").val();
+      $('#SatuanID').empty();
+      $('#SatuanID').append(`<option value="" disable selected>Processing....</option>`);
+      $.ajax({
+        type: 'GET',
+        url: 'ambilsatuan/' + id,
+        success: function(response) {
+          console.log(response);
+          var response = JSON.parse(response);
+          console.log(response);
+          $('#SatuanID').empty();
+          $('#SatuanID').append('<option value="" disable selected>Pilih Satuan</option>');
+          response.forEach(element => {
+            // $('#SatuanID').append(`<option value="" disable selected>${element['Satuan']}</option>`);
+            console.log(element['Satuan']);
+            $('#SatuanID').append(`<option value="${element['SatuanID']}">${element['Satuan']}</option>`);
+          });
+        }
+      });
+    });
   });
-});
 </script>
 <!-- <script>
 $(document).ready(function(){
